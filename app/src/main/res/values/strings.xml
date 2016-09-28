@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">E-Read</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="news">新闻</string>
+    <string name="photo">图片</string>
+    <string name="video">视频</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
