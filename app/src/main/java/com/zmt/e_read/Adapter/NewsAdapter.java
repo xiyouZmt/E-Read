@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
+import com.zmt.e_read.Utils.ProgressViewHolder;
 
 import java.util.List;
 
@@ -21,7 +22,10 @@ import butterknife.ButterKnife;
 /**
  * Created by Dangelo on 2016/9/27.
  */
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private final int EMPTY_VIEW = 1;
+    private final int PROGRESS_VIEW = 2;
 
     private Context context;
     private List<News> list;
@@ -38,26 +42,50 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);
-        return new ViewHolder(view);
+    public int getItemViewType(int position) {
+        if(list.size() == 0){
+            return EMPTY_VIEW;
+        }
+        return list.get(position) != null ? super.getItemViewType(position) : PROGRESS_VIEW;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        if(list.get(position).getType().equals(News.TEXT_NEWS)){
-            holder.title.setText(list.get(position).getTitle());
-            holder.digest.setText(list.get(position).getDigest());
-            holder.time.setText(list.get(position).getTime());
-            Glide.with(context).load(list.get(position).getImageUrl().get(0))
-                    .override(dpToPx(72), dpToPx(72)).centerCrop().into(holder.imgsrc);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        if(viewType == PROGRESS_VIEW){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.progressbar_item, parent, false);
+            return new ProgressViewHolder(view);
+        } else if(viewType == EMPTY_VIEW){
+            return null;
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);
+            return new ViewHolder(view);
         }
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onItemClick(v, position);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        if(holder instanceof ViewHolder){
+            ViewHolder viewHolder = (ViewHolder)holder;
+            viewHolder.title.setText(list.get(position).getTitle());
+            viewHolder.time.setText(list.get(position).getTime());
+            Glide.with(context).load(list.get(position).getImageUrl().get(0))
+                    .override(dpToPx(72), dpToPx(72)).centerCrop().into(viewHolder.imgsrc);
+            if(list.get(position).getType().equals(News.TEXT_NEWS)){
+                viewHolder.digest.setText(list.get(position).getDigest());
+            } else {
+                viewHolder.digest.setText("");
             }
-        });
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickListener.onItemClick(v, position);
+                }
+            });
+        } else if(holder instanceof ProgressViewHolder){
+            ProgressViewHolder viewHolder = (ProgressViewHolder)holder;
+            viewHolder.progressBar.setIndeterminate(true);
+        }
     }
 
     @Override

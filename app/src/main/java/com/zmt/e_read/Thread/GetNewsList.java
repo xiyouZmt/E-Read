@@ -10,6 +10,7 @@ import com.zmt.e_read.Utils.OkHttpUtils;
  */
 public class GetNewsList implements Runnable {
 
+    private boolean getMore;
     private String url;
     private Handler handler;
 
@@ -18,9 +19,20 @@ public class GetNewsList implements Runnable {
         this.handler = handler;
     }
 
+    public GetNewsList(boolean getMore, String url, Handler handler) {
+        this.getMore = getMore;
+        this.url = url;
+        this.handler = handler;
+    }
+
     @Override
     public void run() {
-        OkHttpUtils okHttpUtils = new OkHttpUtils(url);
+        OkHttpUtils okHttpUtils;
+        if(getMore){
+            okHttpUtils = new OkHttpUtils(url);
+        } else {
+            okHttpUtils = new OkHttpUtils(url);
+        }
         String result = okHttpUtils.getJsonData();
         Message msg = new Message();
         msg.obj = result;

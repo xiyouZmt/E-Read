@@ -15,7 +15,7 @@ public class ChannelData {
 
     public static final String OTHER_TYPE = "list/";
 
-    public static final String NEWS_COUNT = "0-20.html";
+    public static final String NEWS_COUNT = "-20.html";
 
     public static final String HEADLINE = "头条";
 

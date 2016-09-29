@@ -23,6 +23,7 @@ public class OkHttpUtils {
     public String getJsonData(){
         StringBuilder builder = new StringBuilder();
         OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.setFollowRedirects(false);
         Request request = new Request.Builder().url(url).build();
         try {
             Response response = okHttpClient.newCall(request).execute();

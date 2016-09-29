@@ -36,6 +36,10 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
     private String channelType = "";
     private String channelID = "";
     private String url = "";
+    private NewsAdapter newsAdapter;
+    private LinearLayoutManager manager;
+    private boolean loading = false;
+    private int start = 0;
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
@@ -51,7 +55,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             channelType = bundle.getString(ChannelData.channelType);
             channelID = bundle.getString(ChannelData.channelID);
         }
-        url = ChannelData.NEWS_DETAIL + channelType + channelID + ChannelData.NEWS_COUNT;
+        url = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
         GetNewsList getNewsList = new GetNewsList(url, handler);
         Thread thread = new Thread(getNewsList, "GetNewsList");
         thread.start();
@@ -69,13 +73,20 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         break;
                     default :
                         Analyse analyse = new Analyse();
-                        analyse.analyseJsonData(channelID, object.toString(), newsList);
-
-                        NewsAdapter newsAdapter = new NewsAdapter(getContext(), newsList, NewsListFragment.this);
-                        newsAdapter.addOnItemClickListener(NewsListFragment.this);
-                        recyclerView.setAdapter(newsAdapter);
-                        if(swipeRefreshLayout.isRefreshing()){
-                            swipeRefreshLayout.setRefreshing(false);
+                        analyse.analyseJsonData(loading, channelID, object.toString(), newsList);
+                        if(newsAdapter == null){
+                            newsAdapter = new NewsAdapter(getContext(), newsList, NewsListFragment.this);
+                            newsAdapter.addOnItemClickListener(NewsListFragment.this);
+                        }
+                        if(loading){
+                            newsList.remove(null);
+                            newsAdapter.notifyDataSetChanged();
+                            loading = false;
+                        } else {
+                            recyclerView.setAdapter(newsAdapter);
+                            if(swipeRefreshLayout.isRefreshing()){
+                                swipeRefreshLayout.setRefreshing(false);
+                            }
                         }
                         break;
                 }
@@ -102,6 +113,22 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
+            int itemCount = manager.getItemCount();
+            int lastItemCount = manager.findLastVisibleItemPosition();
+            if(!loading && itemCount <= (lastItemCount + 1)) {
+                newsAdapter.notifyItemInserted(newsList.size() - 1);
+                /**
+                 * 加载更多
+                 */
+                newsList.add(null);
+                loading = true;
+                start += 20;
+                String getMoreUrl = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
+                GetNewsList getNewsList = new GetNewsList(getMoreUrl, handler);
+                Thread thread = new Thread(getNewsList, "GetNewsList");
+                thread.start();
+//                newsAdapter.notifyDataSetChanged();
+            }
         }
     }
 
@@ -120,7 +147,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         /**
          * 初始化recyclerView
          */
-        LinearLayoutManager manager = new LinearLayoutManager(getContext(),
+        manager = new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
 //        recyclerView.addItemDecoration(new SpaceItemDecoration(getContext(),
@@ -134,12 +161,12 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                loading = false;
                 GetNewsList getNewsList = new GetNewsList(url, handler);
                 Thread thread = new Thread(getNewsList, "GetNewsList");
                 thread.start();
             }
         });
-
     }
 
 }
