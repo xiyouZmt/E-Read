@@ -6,8 +6,17 @@
     <string name="news">新闻</string>
     <string name="photo">图片</string>
     <string name="video">视频</string>
+    <string name="share_image">分享</string>
+    <string name="save_image">保存</string>
+
+    <string name="share">来自易读的分享:%1$s %2$s</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_news_detail">NewsDetail</string>
+
+    <!-- 共享过度动画 -->
+    <string name="transition_photos">transition_animation_news_photos</string>
+    <string name="title_activity_photo">PhotoActivity</string>
 
 </resources>

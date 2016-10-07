@@ -20,7 +20,7 @@ public class OkHttpUtils {
         this.url = url;
     }
 
-    public String getJsonData(){
+    public String getNewsData(){
         StringBuilder builder = new StringBuilder();
         OkHttpClient okHttpClient = new OkHttpClient();
         okHttpClient.setFollowRedirects(false);

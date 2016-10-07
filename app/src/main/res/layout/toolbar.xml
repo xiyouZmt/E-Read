@@ -16,10 +16,9 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/toolBar"
+            android:id="@+id/toolbar"
             android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Analyse {
 
-    public void analyseJsonData(boolean loading, String channelID, String jsonData, List<News> newsList){
+    public void analyseNewsList(boolean loading, String channelID, String jsonData, List<News> newsList){
         try {
             if(!loading){
                 newsList.clear();
@@ -27,28 +27,30 @@ public class Analyse {
                 String title = newsObject.getString("title");
                 String time = newsObject.getString("ptime");
                 String imageSrc = newsObject.getString("imgsrc");
-                News.Builder builder = new News.Builder().setTitle(title).addImageUrl(imageSrc).setTime(time);
+                News news = new News();
+                news.setTitle(title).addImageSrc(imageSrc).setTime(time);
                 if(newsObject.has("url_3w") || newsObject.has("url")){
-                    builder.setType(News.TEXT_NEWS);
+                    news.setType(News.TEXT_NEWS);
                     String content = newsObject.getString("digest");
+                    String docId = newsObject.getString("docid");
+                    String source = newsObject.getString("source");
                     String contentUrl;
                     if(newsObject.has("url_3w")){
                         contentUrl = newsObject.getString("url_3w");
                     } else {
                         contentUrl = newsObject.getString("url_3w");
                     }
-                    builder.setDigest(content).setContentUrl(contentUrl);
+                    news.setSource(source).setDigest(content).setDocId(docId).setContentUrl(contentUrl);
                 } else {
+                    news.setType(News.IMAGE_NEWS);
                     if(newsObject.has("imgextra")){
-                        builder.setType(News.IMAGE_NEWS);
                         JSONArray imageArray = newsObject.getJSONArray("imgextra");
                         for (int j = 0; j <imageArray.length(); j++) {
                             JSONObject object = (JSONObject)imageArray.get(j);
-                            builder.addImageUrl(object.get("imgsrc").toString());
+                            news.addImageSrc(object.get("imgsrc").toString());
                         }
                     }
                 }
-                News news = builder.build();
                 newsList.add(news);
             }
         } catch (JSONException e) {
@@ -56,4 +58,24 @@ public class Analyse {
         }
     }
 
+    public String analyseNewsDetail(String docId, String jsonData){
+        try {
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONObject object = (JSONObject) jsonObject.get(docId);
+            String news_detail = object.get("body").toString();
+            String imageUrl;
+            String imageElement;
+            JSONArray jsonArray = object.getJSONArray("img");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject imageObject = (JSONObject) jsonArray.get(i);
+                imageUrl = imageObject.get("src").toString();
+                imageElement = "<img src=\"" + imageUrl +  "\"/><br>";
+                news_detail = news_detail.replace(imageObject.get("ref").toString(), imageElement);
+            }
+            return news_detail;
+        } catch (JSONException e) {
+            Log.e("json error", e.toString());
+            return null;
+        }
+    }
 }

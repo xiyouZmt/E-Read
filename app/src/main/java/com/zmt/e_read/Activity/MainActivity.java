@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.drawerLayout) DrawerLayout drawerLayout;
-    @BindView(R.id.toolBar) Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.navigationView) NavigationView navigationView;
-//    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
     private FragmentManager fragmentManager;
     private NewsFragment newsFragment;
     private ImageFragment imageFragment;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 if(System.currentTimeMillis() - exitTime > 2000){
                     exitTime = System.currentTimeMillis();
-//                    Snackbar.make(coordinatorLayout, "再按一次退出程序", Snackbar.LENGTH_SHORT);
+                    Snackbar.make(coordinatorLayout, "再按一次退出程序", Snackbar.LENGTH_SHORT);
                 } else {
                     finish();
                 }

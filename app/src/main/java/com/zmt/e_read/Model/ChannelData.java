@@ -17,6 +17,8 @@ public class ChannelData {
 
     public static final String NEWS_COUNT = "-20.html";
 
+    public static final String END_DETAIL = "/full.html";
+
     public static final String HEADLINE = "头条";
 
     public static final String HOUSE = "房产";
@@ -33,11 +35,11 @@ public class ChannelData {
 
     private String type;
 
-    public ChannelData(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.type = builder.type;
-    }
+//    public ChannelData(Builder builder) {
+//        this.id = builder.id;
+//        this.name = builder.name;
+//        this.type = builder.type;
+//    }
 
     public String getType() {
         return type;
@@ -51,55 +53,58 @@ public class ChannelData {
         return name;
     }
 
-    public void setId(String id) {
+    public ChannelData setId(String id) {
         this.id = id;
+        return this;
     }
 
-    public void setName(String name) {
+    public ChannelData setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setType(String type) {
+    public ChannelData setType(String type) {
         this.type = type;
+        return this;
     }
 
-    public static class Builder{
-
-        private String id;
-
-        private String name;
-
-        private String type;
-
-        public String getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public Builder setType(String type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder setId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder setName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public ChannelData build(){
-            return new ChannelData(this);
-        }
-    }
+//    public static class Builder{
+//
+//        private String id;
+//
+//        private String name;
+//
+//        private String type;
+//
+//        public String getId() {
+//            return id;
+//        }
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public String getType() {
+//            return type;
+//        }
+//
+//        public Builder setType(String type) {
+//            this.type = type;
+//            return this;
+//        }
+//
+//        public Builder setId(String id) {
+//            this.id = id;
+//            return this;
+//        }
+//
+//        public Builder setName(String name) {
+//            this.name = name;
+//            return this;
+//        }
+//
+//        public ChannelData build(){
+//            return new ChannelData(this);
+//        }
+//    }
 }

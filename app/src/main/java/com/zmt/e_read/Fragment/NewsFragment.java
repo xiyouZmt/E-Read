@@ -2,6 +2,7 @@ package com.zmt.e_read.Fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -32,6 +33,7 @@ public class NewsFragment extends Fragment {
     @BindView(R.id.channelTab) TabLayout channelTab;
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.addChannel) ImageView addChannel;
+    @BindView(R.id.fab) FloatingActionButton fab;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -61,17 +63,17 @@ public class NewsFragment extends Fragment {
         String [] channelID = getResources().getStringArray(R.array.channelID);
         channelDataList = new ArrayList<>();
         for (int i = 0; i < channelID.length; i++) {
-            ChannelData channelData;
-            ChannelData.Builder builder = new ChannelData.Builder().setId(channelID[i]).setName(channelName[i]);
-            switch (builder.getName()){
+            ChannelData channelData = new ChannelData();
+            channelData.setId(channelID[i]).setName(channelName[i]);
+            switch (channelData.getName()){
                 case ChannelData.HEADLINE :
-                    channelData = builder.setType(ChannelData.HEADLINE_TYPE).build();
+                    channelData.setType(ChannelData.HEADLINE_TYPE);
                     break;
                 case ChannelData.HOUSE :
-                    channelData = builder.setType(ChannelData.HOUSE_TYPE).build();
+                    channelData.setType(ChannelData.HOUSE_TYPE);
                     break;
                 default:
-                    channelData = builder.setType(ChannelData.OTHER_TYPE).build();
+                    channelData.setType(ChannelData.OTHER_TYPE);
                     break;
             }
             channelDataList.add(channelData);
@@ -99,7 +101,7 @@ public class NewsFragment extends Fragment {
         viewPager.setAdapter(adapter);
 
         /**
-         * 为TabLayout加载viewPager
+         * 为TabLayout设置viewPager
          */
         channelTab.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

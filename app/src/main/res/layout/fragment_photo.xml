@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.zmt.e_read.Fragment.PhotoFragment">
+
+    <!--<android.support.design.widget.CoordinatorLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/coordinatorLayout">-->
+
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/appBarLayout"-->
+            <!--app:theme="@style/AppTheme.AppBarOverlay">-->
+
+            <!--<android.support.v7.widget.Toolbar-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/toolbar"-->
+                <!--android:background="@color/color_ff000000"-->
+                <!--android:fitsSystemWindows="true"-->
+                <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
+                <!--app:title="Test"-->
+                <!--app:titleTextAppearance="?android:attr/textAppearanceMedium"-->
+                <!--app:titleTextColor="@color/color_fafafa">-->
+
+            <!--</android.support.v7.widget.Toolbar>-->
+
+        <!--</android.support.design.widget.AppBarLayout>-->
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+
+    <uk.co.senab.photoview.PhotoView
+        android:id="@+id/photo_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible"/>
+
+</FrameLayout>
