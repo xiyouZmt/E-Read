@@ -2,6 +2,7 @@ package com.zmt.e_read.Utils;
 
 import android.util.Log;
 
+import com.zmt.e_read.Model.Image;
 import com.zmt.e_read.Model.News;
 
 import org.json.JSONArray;
@@ -19,6 +20,8 @@ public class Analyse {
         try {
             if(!loading){
                 newsList.clear();
+            } else {
+                newsList.remove(newsList.size() - 1);
             }
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONArray jsonArray = jsonObject.getJSONArray(channelID.substring(0, channelID.length() - 1));
@@ -53,6 +56,7 @@ public class Analyse {
                 }
                 newsList.add(news);
             }
+            newsList.add(null);
         } catch (JSONException e) {
             Log.e("error", e.toString());
         }
@@ -78,4 +82,26 @@ public class Analyse {
             return null;
         }
     }
+
+    public void analyseImage(boolean loading, String jsonData, List<Image> imageList){
+        if(!loading){
+            imageList.clear();
+        } else {
+            imageList.remove(imageList.size() - 1);
+        }
+        try {
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONArray jsonArray = jsonObject.getJSONArray("results");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = (JSONObject) jsonArray.get(i);
+                Image image = new Image();
+                image.setImageDesc(object.get("desc").toString())
+                        .setImageUrl(object.get("url").toString());
+                imageList.add(image);
+            }
+        } catch (JSONException e) {
+            Log.e("json error", e.toString());
+        }
+    }
+
 }

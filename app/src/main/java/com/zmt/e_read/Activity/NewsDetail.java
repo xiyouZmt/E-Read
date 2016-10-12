@@ -1,8 +1,6 @@
 package com.zmt.e_read.Activity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,8 +9,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,16 +20,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zmt.e_read.Model.ChannelData;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Thread.GetNewsData;
+import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
-
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
-
-import java.io.IOException;
-import java.net.HttpRetryException;
-import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,8 +43,8 @@ public class NewsDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
         initViews();
-        GetNewsData getNewsData = new GetNewsData(contentUrl, handler);
-        Thread thread = new Thread(getNewsData, "GetNewsData");
+        GetData getNewsData = new GetData(contentUrl, handler);
+        Thread thread = new Thread(getNewsData, "GetData");
         thread.start();
     }
 

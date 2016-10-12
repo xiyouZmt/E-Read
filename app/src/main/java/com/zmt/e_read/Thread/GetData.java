@@ -8,18 +8,18 @@ import com.zmt.e_read.Utils.OkHttpUtils;
 /**
  * Created by Dangelo on 2016/9/28.
  */
-public class GetNewsData implements Runnable {
+public class GetData implements Runnable {
 
     private boolean getMore;
     private String url;
     private Handler handler;
 
-    public GetNewsData(String url, Handler handler) {
+    public GetData(String url, Handler handler) {
         this.url = url;
         this.handler = handler;
     }
 
-    public GetNewsData(boolean getMore, String url, Handler handler) {
+    public GetData(boolean getMore, String url, Handler handler) {
         this.getMore = getMore;
         this.url = url;
         this.handler = handler;

@@ -1,9 +1,13 @@
 package com.zmt.e_read.Activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.FragmentManager;
+import android.widget.TextView;
 
 import com.zmt.e_read.Fragment.ImageFragment;
 import com.zmt.e_read.Fragment.NewsFragment;
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.navigationView) NavigationView navigationView;
     @BindView(R.id.coordinatorLayout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.title) TextView title;
     private FragmentManager fragmentManager;
     private NewsFragment newsFragment;
     private ImageFragment imageFragment;
@@ -40,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        accessPermission();
     }
 
     public void initViews(){
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 //        StatusBarCompat.compat(this, getResources().getColor(R.color.color_039be5));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this,drawerLayout,  toolbar, 0, 0);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,  toolbar, 0, 0);
         drawerToggle.syncState();
         drawerLayout.addDrawerListener(drawerToggle);
 
@@ -59,12 +66,15 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.nav_news:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, newsFragment).commit();
+                        title.setText(getString(R.string.news));
                         break;
                     case R.id.nav_photo:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, imageFragment).commit();
+                        title.setText(getString(R.string.photo));
                         break;
                     case R.id.nav_video:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, videoFragment).commit();
+                        title.setText(getString(R.string.video));
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -78,6 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment).commit();
+    }
+
+    public void accessPermission(){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode){
+            case 1 :
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                } else {
+
+                }
+                break;
+        }
     }
 
     @Override

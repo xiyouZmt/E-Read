@@ -1,7 +1,6 @@
 package com.zmt.e_read.Adapter;
 
 import android.content.Context;
-import android.hardware.display.DisplayManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zmt.e_read.Model.ChannelData;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
@@ -67,7 +65,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if(viewType == EMPTY_VIEW){
             return null;
         } else if(viewType == IMAGE_VIEW){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_news_item, parent, false);
             return new ImageViewHolder(view);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);

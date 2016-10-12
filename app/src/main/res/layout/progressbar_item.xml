@@ -8,7 +8,9 @@
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/progressBar1"
+        android:id="@+id/progressBar"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         style="@android:style/Widget.Material.Light.ProgressBar"
         android:layout_gravity="center_vertical"/>
 
@@ -17,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:id="@+id/textView5"
+        android:id="@+id/textView"
         android:text="正在加载"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 

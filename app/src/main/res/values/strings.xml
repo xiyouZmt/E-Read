@@ -18,5 +18,6 @@
     <!-- 共享过度动画 -->
     <string name="transition_photos">transition_animation_news_photos</string>
     <string name="title_activity_photo">PhotoActivity</string>
+    <string name="title_activity_test">Test</string>
 
 </resources>

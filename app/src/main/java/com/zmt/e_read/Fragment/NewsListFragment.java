@@ -19,7 +19,7 @@ import com.zmt.e_read.Model.ChannelData;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Thread.GetNewsData;
+import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
 
 import java.util.ArrayList;
@@ -58,8 +58,8 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             channelID = bundle.getString(ChannelData.channelID);
         }
         url = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
-        GetNewsData getNewsList = new GetNewsData(url, handler);
-        Thread thread = new Thread(getNewsList, "GetNewsData");
+        GetData getNewsList = new GetData(url, handler);
+        Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
         return view;
     }
@@ -81,9 +81,8 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                             newsAdapter.addOnItemClickListener(NewsListFragment.this);
                         }
                         if(loading){
-                            newsList.remove(null);
-                            newsAdapter.notifyDataSetChanged();
                             loading = false;
+                            newsAdapter.notifyDataSetChanged();
                         } else {
                             recyclerView.setAdapter(newsAdapter);
                             if(swipeRefreshLayout.isRefreshing()){
@@ -120,26 +119,26 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
+            int itemCount = manager.getItemCount();
+            int lastItemCount = manager.findLastVisibleItemPosition();
+            if(itemCount <= (lastItemCount + 1)) {
+                /**
+                 * 加载更多
+                 */
+                loading = true;
+                start += 20;
+                String getMoreUrl = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
+                GetData getNewsList = new GetData(getMoreUrl, handler);
+                Thread thread = new Thread(getNewsList, "GetData");
+                thread.start();
+//                newsAdapter.notifyDataSetChanged();
+            }
         }
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            int itemCount = manager.getItemCount();
-            int lastItemCount = manager.findLastVisibleItemPosition();
-            if(!loading && itemCount <= (lastItemCount + 1)) {
-                /**
-                 * 加载更多
-                 */
-                newsList.add(null);
-                loading = true;
-                start += 20;
-                String getMoreUrl = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
-                GetNewsData getNewsList = new GetNewsData(getMoreUrl, handler);
-                Thread thread = new Thread(getNewsList, "GetNewsData");
-                thread.start();
-//                newsAdapter.notifyDataSetChanged();
-            }
+
         }
     }
 
@@ -159,7 +158,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
          * 初始化recyclerView
          */
         manager = new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL,false);
+                LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
 //        recyclerView.addItemDecoration(new SpaceItemDecoration(getContext(),
 //                SpaceItemDecoration.VERTICAL_LIST));
@@ -173,8 +172,8 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             @Override
             public void onRefresh() {
                 loading = false;
-                GetNewsData getNewsList = new GetNewsData(url, handler);
-                Thread thread = new Thread(getNewsList, "GetNewsData");
+                GetData getNewsList = new GetData(url, handler);
+                Thread thread = new Thread(getNewsList, "GetData");
                 thread.start();
             }
         });
