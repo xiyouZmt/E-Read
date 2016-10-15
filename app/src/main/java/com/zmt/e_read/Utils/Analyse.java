@@ -2,10 +2,10 @@ package com.zmt.e_read.Utils;
 
 import android.util.Log;
 
-import com.zmt.e_read.Model.Image;
-import com.zmt.e_read.Model.Movie;
-import com.zmt.e_read.Model.MovieChannel;
-import com.zmt.e_read.Model.News;
+import com.zmt.e_read.Module.Image;
+import com.zmt.e_read.Module.Movie;
+import com.zmt.e_read.Module.MovieChannel;
+import com.zmt.e_read.Module.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;

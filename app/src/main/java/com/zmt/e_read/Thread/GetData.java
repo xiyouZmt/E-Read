@@ -3,7 +3,7 @@ package com.zmt.e_read.Thread;
 import android.os.Handler;
 import android.os.Message;
 
-import com.zmt.e_read.Model.Movie;
+import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Utils.OkHttpUtils;
 
 /**

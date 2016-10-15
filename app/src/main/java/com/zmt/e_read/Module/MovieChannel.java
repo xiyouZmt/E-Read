@@ -1,4 +1,4 @@
-package com.zmt.e_read.Model;
+package com.zmt.e_read.Module;
 
 /**
  * Created by Dangelo on 2016/10/13.

@@ -17,8 +17,8 @@ import android.widget.ProgressBar;
 
 import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.GridAdapter;
-import com.zmt.e_read.Model.Image;
-import com.zmt.e_read.Model.OnItemClickListener;
+import com.zmt.e_read.Module.Image;
+import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;

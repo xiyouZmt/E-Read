@@ -17,8 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zmt.e_read.Fragment.PhotoFragment;
-import com.zmt.e_read.Model.Image;
-import com.zmt.e_read.Model.News;
+import com.zmt.e_read.Module.Image;
+import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
 
 import java.util.ArrayList;

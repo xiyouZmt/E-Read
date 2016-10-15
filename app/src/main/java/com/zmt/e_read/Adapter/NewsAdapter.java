@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.zmt.e_read.Model.News;
-import com.zmt.e_read.Model.OnItemClickListener;
+import com.zmt.e_read.Module.News;
+import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Utils.ProgressViewHolder;
 

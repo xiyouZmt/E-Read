@@ -1,4 +1,4 @@
-package com.zmt.e_read.Model;
+package com.zmt.e_read.Module;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -13,9 +13,8 @@ import android.widget.ImageView;
 
 import com.zmt.e_read.Adapter.ChannelsAdapter;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Model.ChannelData;
+import com.zmt.e_read.Module.ChannelData;
 
-import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

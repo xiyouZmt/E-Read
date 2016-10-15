@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 import com.zmt.e_read.GridImageView;
-import com.zmt.e_read.ImageLoader.ImageLoader;
-import com.zmt.e_read.Model.Image;
+import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.R;
 
 import java.util.List;
