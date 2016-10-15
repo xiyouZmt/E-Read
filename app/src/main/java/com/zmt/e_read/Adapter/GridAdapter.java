@@ -59,7 +59,7 @@ public class GridAdapter extends BaseAdapter {
         }
         if(imageList.get(position) != null) {
 //        Picasso.with(context).load(imageList.get(position).getImageUrl()).into(viewHolder.imageView);
-            Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
+        Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
 //        ImageLoader.build(context).bindBitmap(imageList.get(position).getImageUrl(), (viewHolder.imageView));
         }
         return convertView;

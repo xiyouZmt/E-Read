@@ -73,7 +73,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.Material"
                 android:id="@+id/source"
-                android:text="Test"
                 android:textSize="16sp"
                 android:textColor="@color/color_8a000000"/>
 
@@ -85,7 +84,6 @@
                 android:lineSpacingExtra="6dp"
                 android:id="@+id/news_content"
                 android:textAppearance="@android:style/TextAppearance.Material"
-                android:text="this is news content"
                 android:textSize="18sp"/>
 
         </RelativeLayout>

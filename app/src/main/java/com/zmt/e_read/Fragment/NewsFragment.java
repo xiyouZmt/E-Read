@@ -35,10 +35,6 @@ public class NewsFragment extends Fragment {
     @BindView(R.id.addChannel) ImageView addChannel;
     @BindView(R.id.fab) FloatingActionButton fab;
 
-    public NewsFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_news, container, false);
@@ -98,11 +94,10 @@ public class NewsFragment extends Fragment {
          */
         ChannelsAdapter adapter = new ChannelsAdapter(getChildFragmentManager(),
                 Arrays.asList(channelName), newsFragmentList);
-        viewPager.setAdapter(adapter);
-
         /**
          * 为TabLayout设置viewPager
          */
+        viewPager.setAdapter(adapter);
         channelTab.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

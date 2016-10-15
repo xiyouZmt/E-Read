@@ -43,7 +43,7 @@ public class NewsDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
         initViews();
-        GetData getNewsData = new GetData(contentUrl, handler);
+        GetData getNewsData = new GetData(contentUrl, handler,News.TAG);
         Thread thread = new Thread(getNewsData, "GetData");
         thread.start();
     }

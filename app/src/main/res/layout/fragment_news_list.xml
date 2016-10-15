@@ -1,7 +1,8 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_eeeeee"
     tools:context="com.zmt.e_read.Fragment.NewsListFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -20,4 +21,18 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_centerInParent="true"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/coordinatorLayout"
+        android:layout_alignParentBottom="true">
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>

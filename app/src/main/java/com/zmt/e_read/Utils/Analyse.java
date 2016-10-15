@@ -3,11 +3,17 @@ package com.zmt.e_read.Utils;
 import android.util.Log;
 
 import com.zmt.e_read.Model.Image;
+import com.zmt.e_read.Model.Movie;
+import com.zmt.e_read.Model.MovieChannel;
 import com.zmt.e_read.Model.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.List;
 
@@ -101,6 +107,54 @@ public class Analyse {
             }
         } catch (JSONException e) {
             Log.e("json error", e.toString());
+        }
+    }
+
+    public String analyseMovieList(boolean loading, String type, String jsonData, List<Movie> movieList){
+        if(loading){
+            movieList.remove(movieList.size() - 1);
+        } else {
+            movieList.clear();
+        }
+        int count = 1;
+        if(type.equals(MovieChannel.NewestFilm)){
+            count = 0;
+        }
+        try{
+            Document document = Jsoup.parse(jsonData);
+            Elements elements = document.getElementsByClass("co_content8");
+            for (Element element : elements) {
+                if(element.tagName().equals("div")){
+                    /**
+                     * movie node
+                     */
+                    Elements movieElements = element.getElementsByTag("table");
+                    for (Element movieElement : movieElements){
+                        /**
+                         * Link Node，include movie link and movie name
+                         */
+                        Elements hrefElement = movieElement.getElementsByTag("a");
+                        Log.e("link node", hrefElement.size() + "");
+                        String movieName = hrefElement.get(count).text();
+                        String movieUrlSuffix = hrefElement.attr("href");
+                        Elements timeElement = movieElement.getElementsByTag("font");
+                        String releaseTime = timeElement.get(0).text();
+                        Movie movie = new Movie();
+                        movie.setName(movieName).setReleaseTime(releaseTime).setUrl(Movie.url + movieUrlSuffix);
+                        movieList.add(movie);
+                    }
+                    movieList.add(null);
+                    /**
+                     * movie count
+                     */
+                    Elements countElements = element.getElementsByClass("x");
+                    return countElements.get(0).text();
+                }
+            }
+            return Movie.ERROR;
+        } catch(Exception e){
+            Log.e("analyse error", e.toString());
+            return Movie.TAG;
         }
     }
 

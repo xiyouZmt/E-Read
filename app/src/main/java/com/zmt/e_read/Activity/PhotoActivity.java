@@ -10,9 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zmt.e_read.Fragment.PhotoFragment;
+import com.zmt.e_read.Model.Image;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.R;
 
@@ -21,11 +26,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import uk.co.senab.photoview.PhotoView;
 
 public class PhotoActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.viewPager) ViewPager viewPager;
+    @BindView(R.id.photoView) PhotoView photoView;
     @BindView(R.id.photo_title) TextView photoTitle;
     private List<Fragment> fragmentList;
     private News imageNews;
@@ -72,20 +79,31 @@ public class PhotoActivity extends AppCompatActivity {
 
     public void initViews(){
         ButterKnife.bind(this);
-        imageNews = (News)getIntent().getSerializableExtra(News.IMAGE_NEWS);
-        toolbar.setTitle(imageNews.getTitle());
-        photoTitle.setText(pos + "/" + imageNews.getImageUrl().size() + ' ' + imageNews.getTitle());
+        Intent intent = getIntent();
+        toolbar.setTitle("妹子");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fragmentList = new ArrayList<>();
-        for (int i = 0; i < imageNews.getImageUrl().size(); i++) {
-            PhotoFragment photoFragment = new PhotoFragment();
-            Bundle bundle = new Bundle();
-//            bundle.putInt(News.IMAGE_COUNT, i + 1);
-//            bundle.putInt(News.IMAGE_SIZE, imageNews.getImageUrl().size());
-            bundle.putString(News.IMAGE_SRC, imageNews.getImageUrl().get(i));
-            photoFragment.setArguments(bundle);
-            fragmentList.add(photoFragment);
+        if(intent.getSerializableExtra(News.IMAGE_NEWS) != null){
+            photoView.setVisibility(View.GONE);
+            imageNews = (News)getIntent().getSerializableExtra(News.IMAGE_NEWS);
+            toolbar.setTitle(imageNews.getTitle());
+            photoTitle.setText(pos + "/" + imageNews.getImageUrl().size() + ' ' + imageNews.getTitle());
+            for (int i = 0; i < imageNews.getImageUrl().size(); i++) {
+                PhotoFragment photoFragment = new PhotoFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(News.IMAGE_COUNT, i + 1);
+                bundle.putInt(News.IMAGE_SIZE, imageNews.getImageUrl().size());
+                bundle.putString(News.IMAGE_SRC, imageNews.getImageUrl().get(i));
+                photoFragment.setArguments(bundle);
+                fragmentList.add(photoFragment);
+            }
+        } else if(intent.getSerializableExtra(Image.TAG) != null){
+            viewPager.setVisibility(View.GONE);
+            Image image = (Image) getIntent().getSerializableExtra(Image.TAG);
+            Glide.with(this).load(image.getImageUrl()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_loading)
+                    .error(R.drawable.ic_load_fail).into(photoView);
         }
     }
 
@@ -117,7 +135,6 @@ public class PhotoActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

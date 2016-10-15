@@ -1,10 +1,11 @@
 package com.zmt.e_read.Fragment;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.zmt.e_read.Activity.NewsDetail;
-import com.zmt.e_read.Activity.PhotoActivity;
-import com.zmt.e_read.Adapter.NewsAdapter;
-import com.zmt.e_read.Model.ChannelData;
+import com.zmt.e_read.Adapter.MovieAdapter;
+import com.zmt.e_read.Model.Movie;
+import com.zmt.e_read.Model.MovieChannel;
 import com.zmt.e_read.Model.News;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
@@ -32,45 +32,42 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsListFragment extends android.support.v4.app.Fragment implements OnItemClickListener {
+public class MovieListFragment extends Fragment implements OnItemClickListener {
 
-    private View view;
-    private List<News> newsList;
-    private String channelType = "";
-    private String channelID = "";
-    private String url = "";
-    private NewsAdapter newsAdapter;
-    private LinearLayoutManager manager;
-    private boolean loading = false;
-    private int start = 0;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.coordinatorLayout)
+    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    private View view;
+    private MovieAdapter adapter;
+    private LinearLayoutManager manager;
+    private List<Movie> movieList;
+    private String channelType = "";
+    private String url = "";
+    private int currentPage = 1;
+    private int pageCount;
+    private boolean loading = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_news_list, container, false);
         initViews();
-        /**
-         * 添加数据到list中
-         */
-        Bundle bundle;
-        if((bundle = getArguments()) != null){
-            channelType = bundle.getString(ChannelData.channelType);
-            channelID = bundle.getString(ChannelData.channelID);
-        }
         progressBar.setVisibility(View.VISIBLE);
-        url = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
-        GetData getNewsList = new GetData(url, handler, News.TAG);
+        /**
+         * get movie data
+         */
+        url = Movie.url_home + channelType + currentPage + Movie.url_suffix;
+        GetData getNewsList = new GetData(url, handler, Movie.TAG);
         Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
         return view;
     }
 
-    public final Handler handler = new Handler(){
+    private Handler handler = new Handler(){
         public void handleMessage(Message msg){
             Object object = msg.obj;
             if(object != null){
@@ -81,16 +78,16 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         break;
                     default :
                         Analyse analyse = new Analyse();
-                        analyse.analyseNewsList(loading, channelID, object.toString(), newsList);
-                        if(newsAdapter == null){
-                            newsAdapter = new NewsAdapter(getContext(), newsList, NewsListFragment.this);
-                            newsAdapter.addOnItemClickListener(NewsListFragment.this);
+                        String movieCount = analyse.analyseMovieList(loading, channelType, object.toString(), movieList);
+                        pageCount = Integer.parseInt(movieCount.substring(movieCount.indexOf("共") + 1, movieCount.indexOf("页")));
+                        if(adapter == null){
+                            adapter = new MovieAdapter(movieList, MovieListFragment.this);
                         }
                         if(loading){
                             loading = false;
-                            newsAdapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         } else {
-                            recyclerView.setAdapter(newsAdapter);
+                            recyclerView.setAdapter(adapter);
                             if(swipeRefreshLayout.isRefreshing()){
                                 swipeRefreshLayout.setRefreshing(false);
                             }
@@ -106,60 +103,47 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
 
     @Override
     public void onItemClick(View v, int position) {
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        if(newsList.get(position).getType().equals(News.TEXT_NEWS)){
-            intent.setClass(getActivity(), NewsDetail.class);
-            bundle.putSerializable(News.TEXT_NEWS, newsList.get(position));
-        } else {
-            intent.setClass(getActivity(), PhotoActivity.class);
-            bundle.putSerializable(News.IMAGE_NEWS, newsList.get(position));
-        }
-        intent.putExtras(bundle);
-        startActivity(intent);
+
     }
 
     public class ScrollListener extends RecyclerView.OnScrollListener {
-
-        public ScrollListener() {
-            super();
-        }
-
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            int itemCount = manager.getItemCount();
-            int lastItemCount = manager.findLastVisibleItemPosition();
-            if(itemCount <= (lastItemCount + 1)) {
+            if(currentPage >= pageCount){
                 /**
-                 * 加载更多
+                 * all data have been loaded
                  */
-                loading = true;
-                start += 20;
-                String getMoreUrl = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
-                GetData getNewsList = new GetData(getMoreUrl, handler, News.TAG);
-                Thread thread = new Thread(getNewsList, "GetData");
-                thread.start();
+                movieList.remove(movieList.size() - 1);
+                adapter.notifyDataSetChanged();
+                Snackbar.make(coordinatorLayout, "没有更多啦~", Snackbar.LENGTH_SHORT).show();
+            } else {
+                int itemCount = manager.getItemCount();
+                int lastItemCount = manager.findLastVisibleItemPosition();
+                if(itemCount <= (lastItemCount + 1)) {
+                    /**
+                     * reach the bottom and load more
+                     */
+                    loading = true;
+                    currentPage ++;
+                    String getMoreUrl = Movie.url_home + channelType + currentPage + Movie.url_suffix;
+                    GetData getNewsList = new GetData(getMoreUrl, handler, Movie.TAG);
+                    Thread thread = new Thread(getNewsList, "GetData");
+                    thread.start();
+                }
             }
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-
         }
     }
 
-    private void initViews(){
+    public void initViews(){
         ButterKnife.bind(this, view);
-        newsList = new ArrayList<>();
-
+        movieList = new ArrayList<>();
         /**
          * 获取fragment对应的频道ID
          */
         Object object;
-        if((object = getArguments().get(ChannelData.channelID)) != null){
-            channelID = object.toString();
+        if((object = getArguments().get(MovieChannel.channelType)) != null){
+            channelType = object.toString();
         }
 
         /**
@@ -180,7 +164,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             @Override
             public void onRefresh() {
                 loading = false;
-                GetData getNewsList = new GetData(url, handler, News.TAG);
+                GetData getNewsList = new GetData(url, handler, Movie.TAG);
                 Thread thread = new Thread(getNewsList, "GetData");
                 thread.start();
             }

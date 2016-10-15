@@ -34,17 +34,14 @@
 
             <ImageView
                 style="@style/image_item"
-                android:src="@mipmap/ic_launcher"
                 android:id="@+id/image_left" />
 
             <ImageView
                 style="@style/image_item"
-                android:src="@mipmap/ic_launcher"
                 android:id="@+id/image_middle" />
 
             <ImageView
                 style="@style/image_item"
-                android:src="@mipmap/ic_launcher"
                 android:id="@+id/image_right" />
 
         </LinearLayout>

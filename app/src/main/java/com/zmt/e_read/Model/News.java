@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class News implements Serializable {
 
+    public static final String TAG = "News";
+
     public static final String IMAGE_NEWS = "imageNews";
 
     public static final String TEXT_NEWS = "textNews";

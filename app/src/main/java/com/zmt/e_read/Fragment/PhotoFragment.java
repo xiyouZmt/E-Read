@@ -46,7 +46,8 @@ public class PhotoFragment extends Fragment {
 //            imageSize = bundle.getInt(News.IMAGE_SIZE);
         }
         Glide.with(this).load(imageSrc).asBitmap().format(DecodeFormat.PREFER_ARGB_8888)
-                .diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.ic_load_fail).into(photoView);
+                .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_loading)
+                .error(R.drawable.ic_load_fail).into(photoView);
         progressBar.setVisibility(View.GONE);
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override

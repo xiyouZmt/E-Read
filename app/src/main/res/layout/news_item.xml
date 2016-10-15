@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
     style="@style/news_item"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardBackgroundColor="@color/color_fafafa">
 
     <RelativeLayout
@@ -27,7 +27,6 @@
             android:layout_toRightOf="@+id/news_src"
             android:lines="2"
             android:id="@+id/news_title"
-            android:text="习近平:吹响建设科技强国号角国号角国号角"
             android:textSize="18sp"
             android:textColor="@color/color_de000000" />
 
@@ -41,7 +40,6 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:id="@+id/news_digest"
-            android:text="科技是国之利器，中国人民生活要好，必须有强大科技。"
             android:textSize="14sp"
             android:textColor="@color/color_8a000000" />
 

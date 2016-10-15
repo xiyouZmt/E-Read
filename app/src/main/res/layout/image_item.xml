@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:background="#dddddd"/>
 
     <!--<com.zmt.e_read.GridImageView-->
         <!--android:layout_width="0dp"-->

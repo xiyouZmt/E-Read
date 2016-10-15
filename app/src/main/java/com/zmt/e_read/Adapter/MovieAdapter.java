@@ -1,16 +1,12 @@
 package com.zmt.e_read.Adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
-import com.zmt.e_read.ImageLoader.ImageLoader;
-import com.zmt.e_read.Model.Image;
+import com.zmt.e_read.Model.Movie;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Utils.ProgressViewHolder;
@@ -23,16 +19,14 @@ import butterknife.ButterKnife;
 /**
  * Created by Dangelo on 2016/10/11.
  */
-public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    private List<Image> list;
+    private List<Movie> list;
     private OnItemClickListener clickListener;
     private final int EMPTY_VIEW = 1;
     private final int PROGRESS_VIEW = 2;
 
-    public ImageAdapter(Context context, List<Image> list, OnItemClickListener clickListener) {
-        this.context = context;
+    public MovieAdapter(List<Movie> list, OnItemClickListener clickListener) {
         this.list = list;
         this.clickListener = clickListener;
     }
@@ -56,7 +50,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else if(viewType == EMPTY_VIEW){
             return null;
         } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
             return new ViewHolder(view);
         }
     }
@@ -70,7 +64,9 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
         });
         if(holder instanceof ViewHolder){
-            Picasso.with(context).load(list.get(position).getImageUrl()).into(((ViewHolder) holder).imageView);
+            ((ViewHolder) holder).movieName.setText(list.get(position).getName());
+            ((ViewHolder) holder).releaseTime.setText(list.get(position).getReleaseTime());
+//            Picasso.with(context).load(list.get(position).getImageUrl()).into(((ViewHolder) holder).imageView);
 //            Glide.with(context).load(list.get(position).getImageUrl()).centerCrop().into(((ViewHolder) holder).imageView);
 //            ImageLoader.build(context).bindBitmap(list.get(position).getImageUrl(), ((ViewHolder) holder).imageView);
         } else if(holder instanceof ProgressViewHolder){
@@ -86,7 +82,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.imageView) ImageView imageView;
+        @BindView(R.id.movie_name) TextView movieName;
+        @BindView(R.id.release_time) TextView releaseTime;
 
         public ViewHolder(View itemView) {
             super(itemView);

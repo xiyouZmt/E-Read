@@ -1,24 +1,22 @@
 package com.zmt.e_read.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.GridAdapter;
-import com.zmt.e_read.Adapter.ImageAdapter;
 import com.zmt.e_read.Model.Image;
 import com.zmt.e_read.Model.OnItemClickListener;
 import com.zmt.e_read.R;
@@ -45,7 +43,7 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
     @BindView(R.id.fab) FloatingActionButton fab;
     private View view;
     private List<Image> imageList;
-//    private ImageAdapter adapter;
+//    private MovieAdapter adapter;
     private GridAdapter adapter;
     private String url = Image.URL + Image.IMAGE_COUNT + "/" + Image.NEXT_PAGE;
     private boolean loading = false;
@@ -54,7 +52,7 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_image, container, false);
         initViews();
-        GetData getImageData = new GetData(url, handler);
+        GetData getImageData = new GetData(url, handler, Image.TAG);
         Thread t = new Thread(getImageData, "getImageData");
         t.start();
         return view;
@@ -74,7 +72,7 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
                         Analyse analyse = new Analyse();
                         analyse.analyseImage(loading, object.toString(), imageList);
                         if(adapter == null){
-//                            adapter = new ImageAdapter(getActivity(), imageList, ImageFragment.this);
+//                            adapter = new MovieAdapter(getActivity(), imageList, ImageFragment.this);
 //                            recyclerView.setAdapter(adapter);
                             adapter = new GridAdapter(imageList, getContext());
                             gridView.setAdapter(adapter);
@@ -85,7 +83,7 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
                                 loading = false;
                             } else {
                                 swipeRefreshLayout.setRefreshing(false);
-//                                adapter = new ImageAdapter(getContext(), imageList, ImageFragment.this);
+//                                adapter = new MovieAdapter(getContext(), imageList, ImageFragment.this);
 //                                recyclerView.setAdapter(adapter);
                                 adapter = new GridAdapter(imageList, getContext());
                                 gridView.setAdapter(adapter);
@@ -134,7 +132,7 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
                 loading = true;
                 Image.NEXT_PAGE++;
                 String url = Image.URL + Image.IMAGE_COUNT + "/" + Image.NEXT_PAGE;
-                GetData getImageData = new GetData(url, handler);
+                GetData getImageData = new GetData(url, handler, Image.TAG);
                 Thread t = new Thread(getImageData, "getImageData");
                 t.start();
             }
@@ -162,9 +160,19 @@ public class ImageFragment extends Fragment implements OnItemClickListener{
                 loading = false;
                 Image.NEXT_PAGE = 1;
                 url = Image.URL + Image.IMAGE_COUNT + "/" + Image.NEXT_PAGE;
-                GetData getNewsList = new GetData(url, handler);
+                GetData getNewsList = new GetData(url, handler, Image.TAG);
                 Thread thread = new Thread(getNewsList, "GetData");
                 thread.start();
+            }
+        });
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Image.TAG, imageList.get(position));
+                Intent intent = new Intent(getActivity(), PhotoActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {

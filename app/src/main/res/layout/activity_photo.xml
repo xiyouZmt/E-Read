@@ -25,7 +25,6 @@
                 android:background="@color/color_ff000000"
                 android:fitsSystemWindows="true"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="Test"
                 app:titleTextAppearance="?android:attr/textAppearanceMedium"
                 app:titleTextColor="@color/color_fafafa">
 
@@ -43,6 +42,12 @@
 
     </android.support.v4.view.ViewPager>
 
+    <uk.co.senab.photoview.PhotoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/coordinatorLayout"
+        android:id="@+id/photoView"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +55,6 @@
         android:layout_marginBottom="80dp"
         android:id="@+id/photo_title"
         android:padding="5dp"
-        android:text="Test"
         android:textSize="18sp"
         android:textColor="@color/color_fafafa"/>
 

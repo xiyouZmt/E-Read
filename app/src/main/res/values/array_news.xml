@@ -24,4 +24,18 @@
         <item>list</item>
     </string-array>
 
+    <string-array name="movie_tab">
+        <item>最新电影</item>
+        <item>国内电影</item>
+        <item>欧美电影</item>
+        <item>日韩电影</item>
+    </string-array>
+
+    <string-array name="movie_type">
+        <item>dyzz/list_23_</item>
+        <item>china/list_4_</item>
+        <item>oumei/list_7_</item>
+        <item>rihan/list_6_</item>
+    </string-array>
+
 </resources>
