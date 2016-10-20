@@ -3,8 +3,7 @@
     package="com.zmt.e_read" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,15 +12,16 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Activity.MainActivity"
-            android:label="@string/app_name"
-            android:hardwareAccelerated="true">
+            android:hardwareAccelerated="true"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.NewsDetail"
+            android:name=".Activity.NewsDetailActivity"
             android:label="@string/title_activity_news_detail" >
         </activity>
         <activity
@@ -31,6 +31,10 @@
         <activity
             android:name=".Activity.Test"
             android:label="@string/title_activity_test" >
+        </activity>
+        <activity
+            android:name=".Activity.MovieDetailActivity"
+            android:label="@string/title_activity_movie_detail" >
         </activity>
     </application>
 

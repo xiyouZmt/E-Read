@@ -15,7 +15,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Dangelo on 2016/9/28.
@@ -110,7 +112,7 @@ public class Analyse {
         }
     }
 
-    public String analyseMovieList(boolean loading, String type, String jsonData, List<Movie> movieList){
+    public String analyseMovieList(boolean loading, String type, String html, List<Movie> movieList){
         if(loading){
             movieList.remove(movieList.size() - 1);
         } else {
@@ -121,7 +123,7 @@ public class Analyse {
             count = 0;
         }
         try{
-            Document document = Jsoup.parse(jsonData);
+            Document document = Jsoup.parse(html);
             Elements elements = document.getElementsByClass("co_content8");
             for (Element element : elements) {
                 if(element.tagName().equals("div")){
@@ -136,7 +138,7 @@ public class Analyse {
                         Elements hrefElement = movieElement.getElementsByTag("a");
                         Log.e("link node", hrefElement.size() + "");
                         String movieName = hrefElement.get(count).text();
-                        String movieUrlSuffix = hrefElement.attr("href");
+                        String movieUrlSuffix = hrefElement.get(count).attr("href");
                         Elements timeElement = movieElement.getElementsByTag("font");
                         String releaseTime = timeElement.get(0).text();
                         Movie movie = new Movie();
@@ -155,6 +157,21 @@ public class Analyse {
         } catch(Exception e){
             Log.e("analyse error", e.toString());
             return Movie.TAG;
+        }
+    }
+
+    public void analyseMovieDetail(String html, Map<String, String> map){
+        int count = 0;
+        Document document = Jsoup.parse(html);
+        Log.e("html", document.toString());
+        Element element = document.getElementById("Zoom");
+        Elements elements = element.getElementsByTag("p");
+        Element movieInfo = elements.get(count);
+        Elements imageElements = movieInfo.getElementsByTag("img");
+        map.put("movie_image", movieInfo.getElementsByTag("img").get(0).attr("src"));
+        map.put("movie_content", movieInfo.text());
+        if(imageElements.size() == 2){
+            map.put("movie_preview", movieInfo.getElementsByTag("img").get(1).attr("src"));
         }
     }
 

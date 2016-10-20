@@ -1,5 +1,6 @@
 package com.zmt.e_read.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.zmt.e_read.Activity.MovieDetailActivity;
 import com.zmt.e_read.Adapter.MovieAdapter;
 import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.MovieChannel;
@@ -102,7 +104,11 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(View v, int position) {
-
+        Intent intent = new Intent(getActivity(), MovieDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Movie.TAG, movieList.get(position));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public class ScrollListener extends RecyclerView.OnScrollListener {

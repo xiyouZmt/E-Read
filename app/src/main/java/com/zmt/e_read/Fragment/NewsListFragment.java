@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.zmt.e_read.Activity.NewsDetail;
+import com.zmt.e_read.Activity.NewsDetailActivity;
 import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.NewsAdapter;
 import com.zmt.e_read.Module.ChannelData;
@@ -109,7 +109,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
         if(newsList.get(position).getType().equals(News.TEXT_NEWS)){
-            intent.setClass(getActivity(), NewsDetail.class);
+            intent.setClass(getActivity(), NewsDetailActivity.class);
             bundle.putSerializable(News.TEXT_NEWS, newsList.get(position));
         } else {
             intent.setClass(getActivity(), PhotoActivity.class);

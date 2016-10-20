@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zmt.e_read.Activity.NewsDetail">
+    android:fitsSystemWindows="true"
+    tools:context="com.zmt.e_read.Activity.NewsDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -18,8 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/toolbar_layout"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="48dp"
             app:collapsedTitleTextAppearance="@style/TransparentText_small"
             app:expandedTitleTextAppearance="@style/TransparentText_large">
 
@@ -30,9 +33,7 @@
                 android:scaleType="centerCrop"
                 android:transitionName="@string/transition_photos"
                 android:id="@+id/news_image"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.7"
-                tools:targetApi="lollipop"/>
+                app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
@@ -40,17 +41,6 @@
                 android:id="@+id/toolbar"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginRight="24dp"-->
-                    <!--android:ellipsize="end"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:id="@+id/news_title"-->
-                    <!--android:text="Test"-->
-                    <!--android:textSize="20sp"-->
-                    <!--android:textColor="@color/color_fafafa"/>-->
 
             </android.support.v7.widget.Toolbar>
 
@@ -110,7 +100,7 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--android:fitsSystemWindows="true"-->
-    <!--tools:context="com.zmt.e_read.Activity.NewsDetail">-->
+    <!--tools:context="com.zmt.e_read.Activity.NewsDetailActivityActivity">-->
 
     <!--<android.support.design.widget.AppBarLayout-->
         <!--android:layout_width="match_parent"-->

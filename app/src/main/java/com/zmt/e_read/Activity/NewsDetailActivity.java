@@ -9,14 +9,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
 import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
@@ -26,7 +25,7 @@ import com.zmt.e_read.Utils.Analyse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsDetail extends AppCompatActivity {
+public class NewsDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.toolbar_layout)
@@ -82,11 +81,9 @@ public class NewsDetail extends AppCompatActivity {
         /**
          * 设置文章封面
          */
-        Glide.with(this).load(news.getImageUrl().get(0)).asBitmap()
+        Picasso.with(NewsDetailActivity.this).load(news.getImageUrl().get(0))
                 .placeholder(R.drawable.ic_loading)
-                .format(DecodeFormat.PREFER_ARGB_8888)
                 .error(R.drawable.ic_load_fail)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(news_image);
         contentUrl = ChannelData.NEWS_DETAIL + news.getDocId() + ChannelData.END_DETAIL;
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +103,13 @@ public class NewsDetail extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -117,7 +121,6 @@ public class NewsDetail extends AppCompatActivity {
             finish();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
