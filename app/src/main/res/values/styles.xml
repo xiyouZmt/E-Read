@@ -9,6 +9,7 @@
         <item name="windowActionBar">false</item>   <!--去掉ActionBar-->
         <item name="windowNoTitle">true</item>  <!--去掉标题-->
         <!--<item name="android:screenOrientation">portrait</item>-->
+        
         <item name="android:windowTranslucentStatus">true</item>    <!--使toolBar颜色和状态栏颜色一致-->
     </style>
 

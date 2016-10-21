@@ -51,6 +51,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(news != null){
+            toolbar.setTitle(news.getTitle());
             collapsingToolbarLayout.setTitle(news.getTitle());
         }
     }

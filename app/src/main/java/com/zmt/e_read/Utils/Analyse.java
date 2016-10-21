@@ -168,7 +168,10 @@ public class Analyse {
         Elements elements = element.getElementsByTag("p");
         Element movieInfo = elements.get(count);
         Elements imageElements = movieInfo.getElementsByTag("img");
-        map.put("movie_image", movieInfo.getElementsByTag("img").get(0).attr("src"));
+        Elements downloadElement = element.getElementsByTag("tbody");
+        String downloadUrl = downloadElement.get(count).getElementsByTag("a").get(count).attr("href");
+        map.put("movie_downloadUrl", downloadUrl);
+        map.put("movie_image", movieInfo.getElementsByTag("img").get(count).attr("src"));
         map.put("movie_content", movieInfo.text());
         if(imageElements.size() == 2){
             map.put("movie_preview", movieInfo.getElementsByTag("img").get(1).attr("src"));

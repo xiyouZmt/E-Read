@@ -23,6 +23,7 @@ import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.ThunderUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +66,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(list != null && list.size() != 0){
+            toolbar.setTitle(movie.getName());
             collapsingToolbarLayout.setTitle(list.get(0).substring(5));
         }
     }
@@ -209,7 +211,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         list = new ArrayList<>();
         movie = (Movie)getIntent().getSerializableExtra(Movie.TAG);
 //        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back);
-//        toolbar.setTitle(movie.getName());
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -217,7 +219,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String downloadUrl = map.get("movie_downloadUrl");
+                ThunderUtils.getInstance(MovieDetailActivity.this).downloadFile(downloadUrl);
             }
         });
     }
