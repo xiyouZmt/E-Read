@@ -47,6 +47,14 @@ public class NewsDetailActivity extends AppCompatActivity {
         thread.start();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(news != null){
+            collapsingToolbarLayout.setTitle(news.getTitle());
+        }
+    }
+
     private Handler handler = new Handler(){
         public void handleMessage(Message msg){
             Object object = msg.obj;

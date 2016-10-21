@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_name"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_translate_name"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_year"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -96,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_country"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_style"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_language"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_captions"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -170,12 +170,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/grade"
             android:padding="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/text_grade"
                 android:text="IMDb评分 : "
                 style="@style/TextAppearance.AppCompat.Title"/>
 
@@ -184,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_score"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -206,7 +208,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_form"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -228,7 +230,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_size"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -250,7 +252,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_bulk"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -272,7 +274,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_length"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
@@ -294,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/movie_director"
                 android:maxLines="1"
-                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
         </LinearLayout>
