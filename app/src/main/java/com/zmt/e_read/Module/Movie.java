@@ -11,9 +11,11 @@ public class Movie implements Serializable {
 
     public static final String url = "http://www.ygdy8.net/";
 
-    public static final String url_home = url + "html/gndy/";
+    public static final String home_url = url + "html/gndy/";
 
     public static final String url_suffix = ".html";
+
+    public static final String saerch_url = "http://s.dydytt.net/plus/search.php?kwtype=0&searchtype=title&keyword=";
 
     public static final String ERROR = "error";
 

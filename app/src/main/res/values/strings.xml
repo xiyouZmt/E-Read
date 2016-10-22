@@ -8,6 +8,7 @@
     <string name="video">视频</string>
     <string name="share_image">分享</string>
     <string name="save_image">保存</string>
+    <string name="search">搜索</string>
 
     <string name="share">来自易读的分享:%1$s %2$s</string>
 
@@ -20,5 +21,6 @@
     <string name="title_activity_photo">PhotoActivity</string>
     <string name="title_activity_test">Test</string>
     <string name="title_activity_movie_detail">MovieDetailActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

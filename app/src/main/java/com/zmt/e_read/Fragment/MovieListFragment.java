@@ -61,7 +61,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
         /**
          * get movie data
          */
-        url = Movie.url_home + channelType + currentPage + Movie.url_suffix;
+        url = Movie.home_url + channelType + currentPage + Movie.url_suffix;
         GetData getNewsList = new GetData(url, handler, Movie.TAG);
         Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
@@ -131,7 +131,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                      */
                     loading = true;
                     currentPage ++;
-                    String getMoreUrl = Movie.url_home + channelType + currentPage + Movie.url_suffix;
+                    String getMoreUrl = Movie.home_url + channelType + currentPage + Movie.url_suffix;
                     GetData getNewsList = new GetData(getMoreUrl, handler, Movie.TAG);
                     Thread thread = new Thread(getNewsList, "GetData");
                     thread.start();

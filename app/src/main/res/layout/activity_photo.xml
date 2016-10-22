@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:background="@color/color_ff000000"
                 android:fitsSystemWindows="true"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:popupTheme="@style/AppTheme.AppBarOverlay"
                 app:titleTextAppearance="?android:attr/textAppearanceMedium"
                 app:titleTextColor="@color/color_fafafa">
 

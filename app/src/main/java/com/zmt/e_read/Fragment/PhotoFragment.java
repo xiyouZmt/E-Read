@@ -48,6 +48,7 @@ public class PhotoFragment extends Fragment {
         Glide.with(this).load(imageSrc).asBitmap().format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_load_fail).into(photoView);
+        
         progressBar.setVisibility(View.GONE);
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
