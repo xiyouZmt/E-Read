@@ -1,7 +1,5 @@
 package com.zmt.e_read.Activity;
 
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,8 +13,9 @@ import com.zmt.e_read.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends SwipeBackActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.edit_search) EditText edit_search;

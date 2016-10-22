@@ -126,5 +126,6 @@
     <orderEntry type="library" exported="" name="glide-3.7.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.4.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-24.2.0" level="project" />
+    <orderEntry type="module" module-name="swipeback" exported="" />
   </component>
 </module>

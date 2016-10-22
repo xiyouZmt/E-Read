@@ -24,8 +24,9 @@ import com.zmt.e_read.Utils.Analyse;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class NewsDetailActivity extends AppCompatActivity {
+public class NewsDetailActivity extends SwipeBackActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.toolbar_layout)

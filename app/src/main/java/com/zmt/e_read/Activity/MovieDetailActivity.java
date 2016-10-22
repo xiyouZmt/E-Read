@@ -33,8 +33,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends SwipeBackActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.movie_image) ImageView movie_image;
