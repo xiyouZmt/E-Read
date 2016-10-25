@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_03a9f4</item>    <!--标题栏颜色-->
-        <item name="colorPrimaryDark">@color/color_039be5</item>    <!--状态栏颜色-->
+        <item name="colorPrimaryDark">@color/color_03a9f4</item>    <!--状态栏颜色-->
         <item name="colorAccent">@color/color_ff5252</item>  <!--UI控件-->
         <item name="windowActionBar">false</item>   <!--去掉ActionBar-->
         <item name="windowNoTitle">true</item>  <!--去掉标题-->

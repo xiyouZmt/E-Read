@@ -33,7 +33,7 @@
 
         <android.support.design.widget.NavigationView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:id="@+id/navigationView"
             android:fitsSystemWindows="true"

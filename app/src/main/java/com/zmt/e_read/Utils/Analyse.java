@@ -91,7 +91,33 @@ public class Analyse {
         }
     }
 
-    public void analyseImage(boolean loading, String jsonData, List<Image> imageList){
+    public void analyseZhuangBiImage(boolean loading, String html, List<Image> imageList){
+        if(!loading){
+            imageList.clear();
+        } else {
+            imageList.remove(imageList.size() - 1);
+        }
+        Document document = Jsoup.parse(html);
+        Elements elements = document.getElementsByClass("picture-list");
+        for (Element element : elements) {
+            if (element.tagName().equals("div")){
+                for (Element ele : element.getAllElements()) {
+                    if(ele.tagName().equals("a") && !ele.attr("href").equals("")){
+                        Image image = new Image();
+                        image.setImageUrl(ele.attr("href"));
+                        if(image.getImageUrl().endsWith(Image.GIF)){
+                            image.setImageDesc(Image.GIF);
+                        } else {
+                            image.setImageDesc(Image.JPG);
+                        }
+                        imageList.add(image);
+                    }
+                }
+            }
+        }
+    }
+
+    public void analyseMeiZiImage(boolean loading, String jsonData, List<Image> imageList){
         if(!loading){
             imageList.clear();
         } else {
@@ -112,14 +138,14 @@ public class Analyse {
         }
     }
 
-    public String analyseMovieList(boolean loading, String type, String html, List<Movie> movieList){
+    public String analyseMovieList(boolean loading, String movieType, String style, String html, List<Movie> movieList){
         if(loading){
             movieList.remove(movieList.size() - 1);
         } else {
             movieList.clear();
         }
         int count = 1;
-        if(type.equals(MovieChannel.NewestFilm)){
+        if(movieType.equals(MovieChannel.NewestFilm)){
             count = 0;
         }
         try{
@@ -140,12 +166,19 @@ public class Analyse {
                         String movieName = hrefElement.get(count).text();
                         String movieUrlSuffix = hrefElement.get(count).attr("href");
                         Elements timeElement = movieElement.getElementsByTag("font");
-                        String releaseTime = timeElement.get(0).text();
+                        String releaseTime = timeElement.last().text();
                         Movie movie = new Movie();
-                        movie.setName(movieName).setReleaseTime(releaseTime).setUrl(Movie.url + movieUrlSuffix);
+                        movie.setName(movieName).setReleaseTime(releaseTime);
+                        if(style.equals(Movie.GET)){
+                            movie.setUrl(Movie.url + movieUrlSuffix);
+                        } else if(style.equals(Movie.SEARCH)){
+                            movie.setUrl(Movie.search_home_url + movieUrlSuffix);
+                        }
                         movieList.add(movie);
                     }
-                    movieList.add(null);
+                    if(style.equals(Movie.GET)){
+                        movieList.add(null);
+                    }
                     /**
                      * movie count
                      */

@@ -27,9 +27,8 @@ import com.zmt.e_read.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
-public class MainActivity extends SwipeBackActivity {
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;

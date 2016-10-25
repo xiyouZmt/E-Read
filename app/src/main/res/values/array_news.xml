@@ -38,4 +38,14 @@
         <item>rihan/list_6_</item>
     </string-array>
 
+    <string-array name="image_tab">
+        <item>妹子</item>
+        <item>装逼</item>
+    </string-array>
+
+    <string-array name="image_type">
+        <item>http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/</item>
+        <item>http://www.zhuangbi.info/hot?page=</item>
+    </string-array>
+
 </resources>

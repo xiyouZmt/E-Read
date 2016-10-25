@@ -74,12 +74,14 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
             if(object != null){
                 switch (object.toString()){
                     case "network error" :
+                        Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
                         Analyse analyse = new Analyse();
-                        String movieCount = analyse.analyseMovieList(loading, channelType, object.toString(), movieList);
+                        String movieCount = analyse.analyseMovieList(loading, channelType, Movie.GET, object.toString(), movieList);
                         pageCount = Integer.parseInt(movieCount.substring(movieCount.indexOf("共") + 1, movieCount.indexOf("页")));
                         if(adapter == null){
                             adapter = new MovieAdapter(movieList, MovieListFragment.this);
@@ -89,14 +91,14 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                             adapter.notifyDataSetChanged();
                         } else {
                             recyclerView.setAdapter(adapter);
-                            if(swipeRefreshLayout.isRefreshing()){
-                                swipeRefreshLayout.setRefreshing(false);
-                            }
                             if(progressBar.getVisibility() == View.VISIBLE){
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
                         break;
+                }
+                if(swipeRefreshLayout.isRefreshing()){
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         }

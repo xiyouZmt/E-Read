@@ -44,7 +44,7 @@ import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import uk.co.senab.photoview.PhotoView;
 
-public class PhotoActivity extends SwipeBackActivity {
+public class PhotoActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.viewPager) ViewPager viewPager;
@@ -52,7 +52,6 @@ public class PhotoActivity extends SwipeBackActivity {
     @BindView(R.id.photo_title) TextView photoTitle;
     private List<Fragment> fragmentList;
     private News imageNews;
-    private Image image;
     private String imageUrl = "";
     private File file;
     private int pos = 1;
@@ -133,14 +132,19 @@ public class PhotoActivity extends SwipeBackActivity {
             }
         } else if(intent.getSerializableExtra(Image.TAG) != null){
             viewPager.setVisibility(View.GONE);
-            image = (Image) getIntent().getSerializableExtra(Image.TAG);
+            Image image = (Image) getIntent().getSerializableExtra(Image.TAG);
             /**
              * 显示图片
              */
             imageUrl = image.getImageUrl();
-            Glide.with(this).load(image.getImageUrl()).asBitmap().format(DecodeFormat.PREFER_ARGB_8888)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_loading)
-                    .error(R.drawable.ic_load_fail).into(photoView);
+            if(image.getImageDesc().equals(Image.GIF)){
+                Glide.with(this).load(imageUrl).asGif().placeholder(R.drawable.ic_loading)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL).error(R.drawable.ic_load_fail).into(photoView);
+            } else {
+                Glide.with(this).load(imageUrl).asBitmap().format(DecodeFormat.PREFER_ARGB_8888)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.ic_loading)
+                        .error(R.drawable.ic_load_fail).into(photoView);
+            }
         }
     }
 

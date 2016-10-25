@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,8 +77,10 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             if(object != null){
                 switch (object.toString()){
                     case "network error" :
+                        Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
                         Analyse analyse = new Analyse();
@@ -91,14 +94,14 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                             newsAdapter.notifyDataSetChanged();
                         } else {
                             recyclerView.setAdapter(newsAdapter);
-                            if(swipeRefreshLayout.isRefreshing()){
-                                swipeRefreshLayout.setRefreshing(false);
-                            }
                             if(progressBar.getVisibility() == View.VISIBLE){
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
                         break;
+                }
+                if(swipeRefreshLayout.isRefreshing()){
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         }

@@ -3,64 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/color_eeeeee"
     tools:context="com.zmt.e_read.Activity.SearchActivity">
 
-        <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/appBarLayout"
+        app:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/appBarLayout"
-            app:theme="@style/AppTheme.AppBarOverlay">
+            android:id="@+id/toolbar"
+            android:background="?attr/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <android.support.v7.widget.Toolbar
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/toolbar"
-                android:background="?attr/colorPrimary"
-                android:fitsSystemWindows="true"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/search">
 
-                <RelativeLayout
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/search_icon"
+                    android:src="@mipmap/search"/>
+
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/search">
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/search_icon"
+                    android:padding="5dp"
+                    android:layout_marginRight="35dp"
+                    android:focusableInTouchMode="true"
+                    android:id="@+id/edit_search"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:hint="搜索"
+                    android:textColorHint="@color/color_8a000000"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@color/color_de000000"/>
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/search_icon"
-                        android:src="@mipmap/search"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/speech_recognize"
+                    android:src="@android:drawable/ic_btn_speak_now"/>
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/search_icon"
-                        android:padding="5dp"
-                        android:layout_marginRight="35dp"
-                        android:id="@+id/edit_search"
-                        android:background="@null"
-                        android:hint="搜索"
-                        android:textColorHint="@color/color_8a000000"
-                        android:text=""
-                        android:textSize="16sp"
-                        android:textColor="@color/color_de000000"/>
+            </RelativeLayout>
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/speech_recognize"
-                        android:src="@android:drawable/ic_btn_speak_now"/>
+        </android.support.v7.widget.Toolbar>
 
-                </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
 
-            </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/recyclerView"
+        android:scrollbars="vertical"
+        android:visibility="gone">
 
-        </android.support.design.widget.AppBarLayout>
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/progressBar"
+        android:visibility="gone"/>
+
+    <!--<android.support.design.widget.CoordinatorLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/coordinatorLayout"-->
+        <!--android:layout_alignParentBottom="true">-->
+
+    <!--</android.support.design.widget.CoordinatorLayout>-->
 
 </LinearLayout>

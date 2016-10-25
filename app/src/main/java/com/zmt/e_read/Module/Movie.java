@@ -9,19 +9,26 @@ public class Movie implements Serializable {
 
     public static final String TAG = "movie";
 
-    public static final String url = "http://www.ygdy8.net/";
+    public static final String SEARCH = "search";
 
-    public static final String home_url = url + "html/gndy/";
+    public static final String GET = "get";
+
+    public static final String url = "http://www.ygdy8.net";
+
+    public static final String home_url = url + "/html/gndy/";
 
     public static final String url_suffix = ".html";
 
-    public static final String saerch_url = "http://s.dydytt.net/plus/search.php?kwtype=0&searchtype=title&keyword=";
+    public static final String search_url_prefix = "http://s.dydytt.net";
+
+    public static final String search_url = search_url_prefix + "/plus/search.php?kwtype=0&searchtype=title&keyword=";
+
+    public static final String search_home_url = "http://www.ygdy8.com";
 
     public static final String ERROR = "error";
 
     private String name;
     private String releaseTime;
-    private String type;
     private String detailUrl;
 
     public String getName() {
@@ -39,15 +46,6 @@ public class Movie implements Serializable {
 
     public Movie setReleaseTime(String releaseTime) {
         this.releaseTime = releaseTime;
-        return this;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public Movie setType(String type) {
-        this.type = type;
         return this;
     }
 

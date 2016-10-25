@@ -9,6 +9,10 @@ public class Image implements Serializable {
 
     public static final String TAG = "image";
 
+    public static final String GIF = "gif";
+
+    public static final String JPG = "jpg";
+
     public static final String URL = "http://gank.io/api/data/%E7%A6%8F%E5%88%A9/";
 
     public static final int IMAGE_COUNT = 20;
