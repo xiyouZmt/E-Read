@@ -88,12 +88,13 @@ public class ImageListFragment extends Fragment{
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
-                        imageList.remove(imageList.size() - 1);
-                        adapter.notifyDataSetChanged();
+                        if(imageList.size() != 0){
+                            imageList.remove(imageList.size() - 1);
+                            adapter.notifyDataSetChanged();
+                        }
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
-                        progressBar.setVisibility(View.GONE);
                         Analyse analyse = new Analyse();
                         if(channelName.equals(image_tab[0])){
                             analyse.analyseMeiZiImage(loading, object.toString(), imageList);
@@ -119,15 +120,15 @@ public class ImageListFragment extends Fragment{
                         }
                         break;
                 }
-                if(swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         }
     };
 
     public class ScrollListener implements AbsListView.OnScrollListener {
 
+        int start = 0;
         public ScrollListener() {
             super();
         }
@@ -171,9 +172,19 @@ public class ImageListFragment extends Fragment{
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            int end = firstVisibleItem;
             Intent intent = new Intent();
             intent.setAction(ImageFragment.FILTER);
-            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+            if(end > start){
+                intent.putExtra("direction", "up");
+                start = end;
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+            } else if(start > end) {
+                intent.putExtra("direction", "down");
+                start = end;
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+            }
         }
     }
 

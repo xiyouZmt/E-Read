@@ -93,8 +93,10 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
-                        movieList.remove(movieList.size() - 1);
-                        adapter.notifyItemRemoved(movieList.size() - 1);
+                        if(movieList.size() != 0){
+                            movieList.remove(movieList.size() - 1);
+                            adapter.notifyItemRemoved(movieList.size() - 1);
+                        }
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
@@ -109,15 +111,11 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                             adapter.notifyDataSetChanged();
                         } else {
                             recyclerView.setAdapter(adapter);
-                            if(progressBar.getVisibility() == View.VISIBLE){
-                                progressBar.setVisibility(View.GONE);
-                            }
                         }
                         break;
                 }
-                if(swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
             }
         }
     };
@@ -139,9 +137,11 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                 /**
                  * all data have been loaded
                  */
-                movieList.remove(movieList.size() - 1);
-                adapter.notifyDataSetChanged();
-                Snackbar.make(coordinatorLayout, "没有更多啦~", Snackbar.LENGTH_SHORT).show();
+                if(movieList.size() != 0){
+                    movieList.remove(movieList.size() - 1);
+                    adapter.notifyDataSetChanged();
+                    Snackbar.make(coordinatorLayout, "没有更多啦~", Snackbar.LENGTH_SHORT).show();
+                }
             } else {
                 int itemCount = manager.getItemCount();
                 int lastItemCount = manager.findLastVisibleItemPosition();

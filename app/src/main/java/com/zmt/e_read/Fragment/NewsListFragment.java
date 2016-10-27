@@ -97,8 +97,10 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
-                        newsList.remove(newsList.size() - 1);
-                        newsAdapter.notifyItemRemoved(newsList.size() - 1);
+                        if(newsList.size() != 0){
+                            newsList.remove(newsList.size() - 1);
+                            newsAdapter.notifyItemRemoved(newsList.size() - 1);
+                        }
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
@@ -113,15 +115,11 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                             newsAdapter.notifyDataSetChanged();
                         } else {
                             recyclerView.setAdapter(newsAdapter);
-                            if(progressBar.getVisibility() == View.VISIBLE){
-                                progressBar.setVisibility(View.GONE);
-                            }
                         }
                         break;
                 }
-                if(swipeRefreshLayout.isRefreshing()){
-                    swipeRefreshLayout.setRefreshing(false);
-                }
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
             }
         }
     };

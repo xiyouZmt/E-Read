@@ -15,6 +15,8 @@ import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Utils.ProgressViewHolder;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -103,6 +105,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         } else if(holder instanceof ProgressViewHolder){
             ProgressViewHolder viewHolder = (ProgressViewHolder)holder;
             viewHolder.progressBar.setIndeterminate(true);
+
         }
     }
 

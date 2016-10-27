@@ -13,6 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.zmt.e_read.Adapter.ChannelsAdapter;
 import com.zmt.e_read.Module.MovieChannel;
@@ -48,7 +50,52 @@ public class VideoFragment extends Fragment {
         BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Animation animation;
+                if (intent.getStringExtra("direction").equals("up")){
+                    if(fab.getVisibility() == View.VISIBLE){
+//                        FABAnimator.hideFAB(fab, fab.getHeight());
+                        animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_out);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
 
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                fab.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        fab.startAnimation(animation);
+                    }
+                } else {
+                    if(fab.getVisibility() == View.GONE){
+//                        FABAnimator.showFAB(fab, fab.getHeight());
+                        animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_in);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                fab.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        fab.startAnimation(animation);
+                    }
+                }
             }
         };
         manager.registerReceiver(receiver, intentFilter);

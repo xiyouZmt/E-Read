@@ -40,12 +40,6 @@
             android:label="@string/title_activity_search" >
         </activity>
 
-        <receiver android:name=".Fragment.ImageFragment$MyReceiver">
-            <intent-filter>
-                <action android:name="com.zmt.e_read.broadCast.adjustFab"/>
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>
