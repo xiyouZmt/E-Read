@@ -1,11 +1,15 @@
 package com.zmt.e_read.Fragment;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +21,7 @@ import android.widget.ProgressBar;
 import com.zmt.e_read.Activity.NewsDetailActivity;
 import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.NewsAdapter;
+import com.zmt.e_read.Animator.FABAnimator;
 import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.Module.OnItemClickListener;
@@ -50,6 +55,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    public static final String FILTER = "com.zmt.e_read.broadCast.newsToTop";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +74,17 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         GetData getNewsList = new GetData(url, handler, News.TAG);
         Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
+
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FILTER);
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        };
+        manager.registerReceiver(receiver, intentFilter);
         return view;
     }
 
@@ -80,6 +97,8 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        newsList.remove(newsList.size() - 1);
+                        newsAdapter.notifyItemRemoved(newsList.size() - 1);
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
@@ -149,7 +168,14 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-
+            Intent intent = new Intent();
+            intent.setAction(NewsFragment.FILTER);
+            if(dy > 0){
+                intent.putExtra("direction", "up");
+            } else {
+                intent.putExtra("direction", "down");
+            }
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
         }
     }
 

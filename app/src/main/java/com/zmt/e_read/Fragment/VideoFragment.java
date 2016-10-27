@@ -1,9 +1,14 @@
 package com.zmt.e_read.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +35,23 @@ public class VideoFragment extends Fragment {
     @BindView(R.id.channelTab) TabLayout channelTab;
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.fab) FloatingActionButton fab;
+    public static final String FILTER = "com.zmt.e_read.broadCast.videoNewsFab";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_video, container, false);
         initViews();
 
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FILTER);
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+            }
+        };
+        manager.registerReceiver(receiver, intentFilter);
         return view;
     }
 
@@ -94,6 +110,14 @@ public class VideoFragment extends Fragment {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(MovieListFragment.FILTER);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
     }

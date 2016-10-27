@@ -1,12 +1,16 @@
 package com.zmt.e_read.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -52,6 +56,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
     private int currentPage = 1;
     private int pageCount;
     private boolean loading = false;
+    public static final String FILTER = "com.zmt.e_read.broadCast.videoToTop";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +70,17 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
         GetData getNewsList = new GetData(url, handler, Movie.TAG);
         Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
+
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FILTER);
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                recyclerView.smoothScrollToPosition(0);
+            }
+        };
+        manager.registerReceiver(receiver, intentFilter);
         return view;
     }
 
@@ -77,6 +93,8 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        movieList.remove(movieList.size() - 1);
+                        adapter.notifyItemRemoved(movieList.size() - 1);
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :

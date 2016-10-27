@@ -1,19 +1,27 @@
 package com.zmt.e_read.Fragment;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.zmt.e_read.Adapter.ChannelsAdapter;
+import com.zmt.e_read.Animator.FABAnimator;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Module.ChannelData;
 
@@ -35,12 +43,68 @@ public class NewsFragment extends Fragment {
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.addChannel) ImageView addChannel;
     @BindView(R.id.fab) FloatingActionButton fab;
+    public static final String FILTER = "com.zmt.e_read.broadCast.adjustNewsFab";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_news, container, false);
         initViews();
 
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FILTER);
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Animation animation;
+                if (intent.getStringExtra("direction").equals("up")){
+                    if(fab.getVisibility() == View.VISIBLE){
+//                        FABAnimator.hideFAB(fab, fab.getHeight());
+                        animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_out);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                fab.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        fab.startAnimation(animation);
+                    }
+                } else {
+                    if(fab.getVisibility() == View.GONE){
+//                        FABAnimator.showFAB(fab, fab.getHeight());
+                        animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_in);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                fab.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+                        fab.startAnimation(animation);
+                    }
+                }
+            }
+        };
+        manager.registerReceiver(receiver, intentFilter);
         return view;
     }
 
@@ -114,6 +178,14 @@ public class NewsFragment extends Fragment {
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(NewsListFragment.FILTER);
+                LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
     }

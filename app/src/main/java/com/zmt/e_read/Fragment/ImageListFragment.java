@@ -1,11 +1,15 @@
 package com.zmt.e_read.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +23,6 @@ import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.GridAdapter;
 import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.Module.MovieChannel;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ImageListFragment extends Fragment implements OnItemClickListener{
+public class ImageListFragment extends Fragment{
 
     private final int COLUMN = 2;
     @BindView(R.id.swipeRefreshLayout)
@@ -52,6 +55,7 @@ public class ImageListFragment extends Fragment implements OnItemClickListener{
     private String channelName = "";
     private String channelType = "";
     private boolean loading = false;
+    public static final String FILTER = "com.zmt.e_read.broadCast.imageToTop";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +65,17 @@ public class ImageListFragment extends Fragment implements OnItemClickListener{
         GetData getImageData = new GetData(url, handler, Image.TAG);
         Thread t = new Thread(getImageData, "getImageData");
         t.start();
+
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(FILTER);
+        BroadcastReceiver receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                gridView.setSelection(0);
+            }
+        };
+        manager.registerReceiver(receiver, intentFilter);
         return view;
     }
 
@@ -73,6 +88,8 @@ public class ImageListFragment extends Fragment implements OnItemClickListener{
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        imageList.remove(imageList.size() - 1);
+                        adapter.notifyDataSetChanged();
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
@@ -154,7 +171,9 @@ public class ImageListFragment extends Fragment implements OnItemClickListener{
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+            Intent intent = new Intent();
+            intent.setAction(ImageFragment.FILTER);
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
         }
     }
 
@@ -200,8 +219,4 @@ public class ImageListFragment extends Fragment implements OnItemClickListener{
         });
     }
 
-    @Override
-    public void onItemClick(View v, int position) {
-
-    }
 }
