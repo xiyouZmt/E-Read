@@ -130,6 +130,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
     }
 
     public class ScrollListener extends RecyclerView.OnScrollListener {
+
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -157,6 +158,19 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                     thread.start();
                 }
             }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            Intent intent = new Intent();
+            intent.setAction(VideoFragment.FILTER);
+            if(dy > 0){
+                intent.putExtra("direction", "up");
+            } else {
+                intent.putExtra("direction", "down");
+            }
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
         }
     }
 

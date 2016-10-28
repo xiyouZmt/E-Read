@@ -35,12 +35,12 @@ import butterknife.ButterKnife;
  */
 public class ImageFragment extends Fragment {
 
+    public static final String FILTER = "com.zmt.e_read.broadCast.adjustImageFab";
     private View view;
     private List<MovieChannel> channelDataList;
     @BindView(R.id.channelTab) TabLayout channelTab;
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.fab) FloatingActionButton fab;
-    public static final String FILTER = "com.zmt.e_read.broadCast.adjustImageFab";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

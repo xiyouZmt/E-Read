@@ -172,17 +172,15 @@ public class ImageListFragment extends Fragment{
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            int end = firstVisibleItem;
             Intent intent = new Intent();
             intent.setAction(ImageFragment.FILTER);
-            if(end > start){
+            if(firstVisibleItem > start){
                 intent.putExtra("direction", "up");
-                start = end;
+                start = firstVisibleItem;
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
-            } else if(start > end) {
+            } else if(start > firstVisibleItem) {
                 intent.putExtra("direction", "down");
-                start = end;
+                start = firstVisibleItem;
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         }
