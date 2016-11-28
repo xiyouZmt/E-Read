@@ -9,8 +9,6 @@
 
 ![image](http://img.blog.csdn.net/20161022150349795?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
 
-![image](http://img.blog.csdn.net/20161022224309039?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
-
 ##用到的开源库 
 ###ButterKnife okhttp Glide Picasso Jsoup photoView html-textview,目前还在改进中，，，
 
