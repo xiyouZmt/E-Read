@@ -98,7 +98,6 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         break;
                     case "server error" :
                         if(newsList.size() != 0){
-                            newsList.remove(newsList.size() - 1);
                             newsAdapter.notifyItemRemoved(newsList.size() - 1);
                         }
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();

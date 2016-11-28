@@ -104,7 +104,7 @@ public class ImageListFragment extends Fragment{
                         if(adapter == null){
 //                            adapter = new MovieAdapter(getActivity(), imageList, ImageListFragment.this);
 //                            recyclerView.setAdapter(adapter);
-                            adapter = new GridAdapter(imageList, getContext());
+                            adapter = new GridAdapter(imageList, getActivity());
                             gridView.setAdapter(adapter);
                         } else {
                             if(loading){

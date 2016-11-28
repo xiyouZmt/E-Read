@@ -1,12 +1,10 @@
 package com.zmt.e_read.Activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.VideoView;
 
 import com.zmt.e_read.Adapter.MovieAdapter;
 import com.zmt.e_read.Module.Movie;
@@ -47,10 +45,6 @@ public class SearchActivity extends SwipeBackActivity implements OnItemClickList
     ImageView speech_recognize;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-//    @BindView(R.id.progressBar)
-//    ProgressBar progressBar;
-//    @BindView(R.id.coordinatorLayout)
-//    CoordinatorLayout coordinatorLayout;
     private List<Movie> movieList;
     private MovieAdapter adapter;
     private ProgressDialog progressDialog;
@@ -69,23 +63,26 @@ public class SearchActivity extends SwipeBackActivity implements OnItemClickList
             if(object != null){
                 switch (object.toString()){
                     case "network error" :
+                        Snackbar.make(recyclerView, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
+                        Snackbar.make(recyclerView, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
-                        Analyse analyse = new Analyse();
-                        analyse.analyseMovieList(false, MovieChannel.NewestFilm, Movie.SEARCH, object.toString(), movieList);
-                        if(adapter == null){
-                            adapter = new MovieAdapter(movieList, SearchActivity.this);
+                        try{
+                            Analyse analyse = new Analyse();
+                            analyse.analyseMovieList(false, MovieChannel.NewestFilm, Movie.SEARCH, object.toString(), movieList);
+                            if(adapter == null){
+                                adapter = new MovieAdapter(movieList, SearchActivity.this);
+                            }
+                            recyclerView.setVisibility(View.VISIBLE);
+                            recyclerView.setAdapter(adapter);
+                        } catch (Exception e){
+                            Log.e("error", e.toString());
                         }
-                        recyclerView.setVisibility(View.VISIBLE);
-                        recyclerView.setAdapter(adapter);
-                        progressDialog.dismiss();
-//                        if(progressBar.getVisibility() == View.VISIBLE){
-//                            progressBar.setVisibility(View.GONE);
-//                        }
                         break;
                 }
+                progressDialog.dismiss();
             }
         }
     };

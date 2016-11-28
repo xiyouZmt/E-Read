@@ -11,9 +11,25 @@
     <color name="color_3e802f">#3e802f</color>
     <color name="color_f4b400">#f4b400</color>
     <color name="color_b23424">#b23424</color>
+    <color name="color_424242">#424242</color>
+    <color name="color_ff000000">#ff000000</color>
     <color name="color_de000000">#de000000</color>
     <color name="color_8a000000">#8a000000</color>
-    <color name="color_ff000000">#ff000000</color>
+    <color name="color_20000000">#20000000</color>
+    <color name="color_ffcc3131">#ffcc3131</color>
+    <color name="color_ffffffff">#ffffffff</color>
+
+
+    <color name="color_ffb9b9b9">#ffb9b9b9</color>
+    <color name="color_ff454545">#ff454545</color>
+    <color name="color_ffd2d2d2">#ffd2d2d2</color>
+    <color name="color_fff5f5f5">#fff5f5f5</color>
+    <color name="color_ffd9d9d9">#ffd9d9d9</color>
+    <color name="color_ffefefef">#ffefefef</color>
+    <color name="color_ffcdcdcd">#ffcdcdcd</color>
+    <color name="color_fff9f9f9">#fff9f9f9</color>
+    <color name="color_deffffff">#deffffff</color>
+    <color name="color_8affffff">#8affffff</color>
 
     <integer-array name="color_array">
         <item>@color/color_03a9f4</item>

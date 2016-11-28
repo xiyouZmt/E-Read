@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="?attr/colorPrimary"
             android:fitsSystemWindows="true"
+            app:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
@@ -25,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/title"
                 android:layout_gravity="center"
-                android:text="@string/news"
                 android:textSize="20sp"
                 android:textColor="@color/color_fafafa"/>
 

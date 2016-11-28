@@ -131,7 +131,7 @@ public class MovieDetailActivity extends SwipeBackActivity {
                 /**
                  * 评分处理
                  */
-                if(value.contains("users")){
+                if(value.contains("users") || value.contains("votes")){
                     end =  0;
                     boolean first = true;
                     for (int j = 0; j < value.length(); j++) {

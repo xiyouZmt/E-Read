@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zmt.e_read.Activity.AddChannel">
+
+    <include layout="@layout/toolbar"/>
+
+    <com.zmt.e_read.DragGridView.DragGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/myChannel"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="vertical"
+        android:stretchMode="columnWidth"
+        android:padding="10dp"
+        android:numColumns="4">
+
+    </com.zmt.e_read.DragGridView.DragGridView>
+
+    <com.zmt.e_read.DragGridView.DragGridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/allChannel"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="vertical"
+        android:stretchMode="columnWidth"
+        android:padding="10dp"
+        android:numColumns="4">
+
+    </com.zmt.e_read.DragGridView.DragGridView>
+
+</LinearLayout>

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
     style="@style/news_item"
-    app:cardBackgroundColor="@color/color_fafafa">
+    app:cardBackgroundColor="?attr/recyclerView_item">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:ellipsize="end"
             android:text="Test"
             android:textSize="18sp"
-            android:textColor="@color/color_de000000"/>
+            android:textColor="?attr/news_title"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +55,7 @@
             android:id="@+id/news_time"
             android:text="test"
             android:textSize="12sp"
-            android:textColor="@color/color_8a000000"/>
+            android:textColor="?attr/news_time"/>
 
     </LinearLayout>
 

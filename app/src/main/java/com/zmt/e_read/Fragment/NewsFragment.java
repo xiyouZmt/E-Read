@@ -1,6 +1,5 @@
 package com.zmt.e_read.Fragment;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,19 +10,18 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.zmt.e_read.Activity.AddChannel;
 import com.zmt.e_read.Adapter.ChannelsAdapter;
-import com.zmt.e_read.Animator.FABAnimator;
-import com.zmt.e_read.R;
 import com.zmt.e_read.Module.ChannelData;
+import com.zmt.e_read.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,25 +29,30 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsFragment extends Fragment {
 
-    private View view;
-    private List<ChannelData> channelDataList;
-    @BindView(R.id.channelTab) TabLayout channelTab;
-    @BindView(R.id.viewPager) ViewPager viewPager;
-    @BindView(R.id.addChannel) ImageView addChannel;
-    @BindView(R.id.fab) FloatingActionButton fab;
     public static final String FILTER = "com.zmt.e_read.broadCast.adjustNewsFab";
+    private final int ADD_CHANNEL = 0;
+
+    private View view;
+    @BindView(R.id.channelTab)
+    TabLayout channelTab;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.addChannel)
+    ImageView addChannel;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view =  inflater.inflate(R.layout.fragment_news, container, false);
+        view = inflater.inflate(R.layout.fragment_news, container, false);
         initViews();
-
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(FILTER);
@@ -57,8 +60,8 @@ public class NewsFragment extends Fragment {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Animation animation;
-                if (intent.getStringExtra("direction").equals("up")){
-                    if(fab.getVisibility() == View.VISIBLE){
+                if (intent.getStringExtra("direction").equals("up")) {
+                    if (fab.getVisibility() == View.VISIBLE) {
 //                        FABAnimator.hideFAB(fab, fab.getHeight());
                         animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_out);
                         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -80,7 +83,7 @@ public class NewsFragment extends Fragment {
                         fab.startAnimation(animation);
                     }
                 } else {
-                    if(fab.getVisibility() == View.GONE){
+                    if (fab.getVisibility() == View.GONE) {
 //                        FABAnimator.showFAB(fab, fab.getHeight());
                         animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_in);
                         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -105,10 +108,26 @@ public class NewsFragment extends Fragment {
             }
         };
         manager.registerReceiver(receiver, intentFilter);
+        ButterKnife.bind(this, view);
         return view;
     }
 
-    public void initViews(){
+    @OnClick(R.id.addChannel)
+    public void onClick() {
+        Intent intent = new Intent(getActivity(), AddChannel.class);
+        startActivityForResult(intent, ADD_CHANNEL);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case ADD_CHANNEL :
+
+                break;
+        }
+    }
+
+    public void initViews() {
         ButterKnife.bind(this, view);
         List<Fragment> newsFragmentList = new ArrayList<>();
 
@@ -120,17 +139,17 @@ public class NewsFragment extends Fragment {
         /**
          * 初始化channelData对象
          */
-        String [] channelName = getResources().getStringArray(R.array.channelName);
-        String [] channelID = getResources().getStringArray(R.array.channelID);
-        channelDataList = new ArrayList<>();
+        String[] channelName = getResources().getStringArray(R.array.channelName);
+        String[] channelID = getResources().getStringArray(R.array.channelID);
+        List<ChannelData> channelDataList = new ArrayList<>();
         for (int i = 0; i < channelID.length; i++) {
             ChannelData channelData = new ChannelData();
             channelData.setId(channelID[i]).setName(channelName[i]);
-            switch (channelData.getName()){
-                case ChannelData.HEADLINE :
+            switch (channelData.getName()) {
+                case ChannelData.HEADLINE:
                     channelData.setType(ChannelData.HEADLINE_TYPE);
                     break;
-                case ChannelData.HOUSE :
+                case ChannelData.HOUSE:
                     channelData.setType(ChannelData.HOUSE_TYPE);
                     break;
                 default:
@@ -189,5 +208,4 @@ public class NewsFragment extends Fragment {
             }
         });
     }
-
 }

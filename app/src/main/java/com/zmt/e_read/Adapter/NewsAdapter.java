@@ -7,16 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Utils.ProgressViewHolder;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -174,6 +172,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @BindView(R.id.news_time) TextView time;
 
         public ImageViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class ProgressViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.progressBar) ProgressBar progressBar;
+        @BindView(R.id.textView) TextView textView;
+
+        public ProgressViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

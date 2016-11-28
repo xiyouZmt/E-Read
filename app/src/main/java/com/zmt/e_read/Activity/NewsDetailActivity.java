@@ -70,7 +70,9 @@ public class NewsDetailActivity extends SwipeBackActivity {
                         Analyse analyse = new Analyse();
                         news_source.setText(news.getSource() + " " + news.getTime());
                         String news_detail = analyse.analyseNewsDetail(news.getDocId(), object.toString());
-                        news_content.setText(Html.fromHtml(news_detail, new com.zmt.e_read.Utils.HtmlHttpImageGetter(news_content), null));
+                        if(news_detail != null){
+                            news_content.setText(Html.fromHtml(news_detail, new com.zmt.e_read.Utils.HtmlHttpImageGetter(news_content), null));
+                        }
                         break;
                 }
             }

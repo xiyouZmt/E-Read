@@ -43,8 +43,6 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
     RecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.coordinatorLayout)
-    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     private View view;
@@ -93,8 +91,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                         Snackbar.make(view, "网络连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     case "server error" :
-                        if(movieList.size() != 0){
-                            movieList.remove(movieList.size() - 1);
+                        if(movieList.size() != 0 ){
                             adapter.notifyItemRemoved(movieList.size() - 1);
                         }
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
@@ -141,7 +138,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                 if(movieList.size() != 0){
                     movieList.remove(movieList.size() - 1);
                     adapter.notifyDataSetChanged();
-                    Snackbar.make(coordinatorLayout, "没有更多啦~", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, "没有更多啦~", Snackbar.LENGTH_SHORT).show();
                 }
             } else {
                 int itemCount = manager.getItemCount();
@@ -164,7 +161,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             Intent intent = new Intent();
-            intent.setAction(VideoFragment.FILTER);
+            intent.setAction(MovieFragment.FILTER);
             if(dy > 0){
                 intent.putExtra("direction", "up");
             } else {

@@ -6,6 +6,7 @@ import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.Module.News;
+import com.zmt.e_read.Module.Video;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +29,7 @@ public class Analyse {
         try {
             if(!loading){
                 newsList.clear();
-            } else {
+            } else if(newsList.size() != 0 && newsList.get(newsList.size() - 1) == null){
                 newsList.remove(newsList.size() - 1);
             }
             JSONObject jsonObject = new JSONObject(jsonData);
@@ -94,7 +95,7 @@ public class Analyse {
     public void analyseZhuangBiImage(boolean loading, String html, List<Image> imageList){
         if(!loading){
             imageList.clear();
-        } else {
+        } else if(imageList.size() != 0) {
             imageList.remove(imageList.size() - 1);
         }
         Document document = Jsoup.parse(html);
@@ -120,7 +121,7 @@ public class Analyse {
     public void analyseMeiZiImage(boolean loading, String jsonData, List<Image> imageList){
         if(!loading){
             imageList.clear();
-        } else {
+        } else if(imageList.size() != 0){
             imageList.remove(imageList.size() - 1);
         }
         try {
@@ -139,10 +140,10 @@ public class Analyse {
     }
 
     public String analyseMovieList(boolean loading, String movieType, String style, String html, List<Movie> movieList){
-        if(loading){
-            movieList.remove(movieList.size() - 1);
-        } else {
+        if(!loading){
             movieList.clear();
+        } else if(movieList.size() != 0){
+            movieList.remove(movieList.size() - 1);
         }
         int count = 1;
         if(movieType.equals(MovieChannel.NewestFilm)){
@@ -178,12 +179,14 @@ public class Analyse {
                     }
                     if(style.equals(Movie.GET)){
                         movieList.add(null);
+                        /**
+                         * movie count
+                         */
+                        Elements countElements = element.getElementsByClass("x");
+                        return countElements.get(0).text();
+                    } else {
+                        return "success";
                     }
-                    /**
-                     * movie count
-                     */
-                    Elements countElements = element.getElementsByClass("x");
-                    return countElements.get(0).text();
                 }
             }
             return Movie.ERROR;
@@ -208,6 +211,38 @@ public class Analyse {
         map.put("movie_content", movieInfo.text());
         if(imageElements.size() == 2){
             map.put("movie_preview", movieInfo.getElementsByTag("img").get(1).attr("src"));
+        }
+    }
+
+    public void analyseVideoList(boolean loading, String channelID, String jsonData, List<Video> videoList){
+        try {
+            if(!loading){
+                videoList.clear();
+            } else if(videoList.size() != 0){
+                videoList.remove(videoList.size() - 1);
+            }
+            JSONObject jsonObject = new JSONObject(jsonData);
+            JSONArray jsonArray = jsonObject.getJSONArray(channelID);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject videoObject = (JSONObject)jsonArray.get(i);
+                String title = videoObject.getString("title");
+                String length = videoObject.getString("length");
+                String cover = videoObject.getString("cover");
+                String videoUrl;
+                if(videoObject.has("mp4Hd_url")){
+                    videoUrl = videoObject.getString("mp4Hd_url");
+                } else if(videoObject.has("mp4_url")){
+                    videoUrl = videoObject.getString("mp4Hd_url");
+                } else {
+                    continue;
+                }
+                Video video = new Video();
+                video.setVideoTitle(title).setVideoLength(length).setVideoUrl(videoUrl).setVideoCover(cover);
+                videoList.add(video);
+            }
+            videoList.add(null);
+        } catch (JSONException e) {
+            Log.e("error", e.toString());
         }
     }
 

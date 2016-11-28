@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="toolbar_color" format="color"/>
+    <attr name="statusBar_color" format="color"/>
+    <attr name="tabLayout_color" format="color"/>
+    <attr name="navigation_color" format="color"/>
+    <attr name="detail_color" format="color"/>
+    <attr name="recyclerView_item" format="color"/>
+    <attr name="listView_item" format="color"/>
+    <attr name="news_title" format="color"/>
+    <attr name="news_digest" format="color"/>
+    <attr name="news_time" format="color"/>
+    <attr name="movie_title" format="color" />
+    <attr name="movie_time" format="color"/>
+    <attr name="recyclerView" format="color"/>
+
+</resources>

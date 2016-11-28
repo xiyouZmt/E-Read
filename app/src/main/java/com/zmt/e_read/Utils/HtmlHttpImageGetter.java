@@ -38,7 +38,6 @@ public class HtmlHttpImageGetter implements Html.ImageGetter {
         if(baseUrl != null) {
             this.baseUri = URI.create(baseUrl);
         }
-
     }
 
     public HtmlHttpImageGetter(TextView textView, String baseUrl, boolean matchParentWidth) {
@@ -47,7 +46,6 @@ public class HtmlHttpImageGetter implements Html.ImageGetter {
         if(baseUrl != null) {
             this.baseUri = URI.create(baseUrl);
         }
-
     }
 
     public Drawable getDrawable(String source) {
@@ -60,14 +58,12 @@ public class HtmlHttpImageGetter implements Html.ImageGetter {
     public class UrlDrawable extends BitmapDrawable {
         protected Drawable drawable;
 
-        public UrlDrawable() {
-        }
+        public UrlDrawable() {}
 
         public void draw(Canvas canvas) {
             if(this.drawable != null) {
                 this.drawable.draw(canvas);
             }
-
         }
     }
 
@@ -159,4 +155,3 @@ public class HtmlHttpImageGetter implements Html.ImageGetter {
         }
     }
 }
-

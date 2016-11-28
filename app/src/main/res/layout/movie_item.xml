@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    style="@style/news_item"
     android:foreground="?android:attr/selectableItemBackground"
+    style="@style/news_item"
     app:cardBackgroundColor="@color/color_fafafa">
 
     <RelativeLayout
@@ -33,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:lines="2"
                 android:id="@+id/movie_name"
-                android:text="android"
                 android:textSize="18sp"
                 android:textColor="@color/color_de000000" />
 
@@ -44,7 +43,6 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:id="@+id/release_time"
-                android:text="sahdfgvsdgfvs"
                 android:textSize="14sp"
                 android:textColor="@color/color_8a000000" />
 

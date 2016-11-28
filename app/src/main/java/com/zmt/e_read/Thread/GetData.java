@@ -13,7 +13,7 @@ public class GetData implements Runnable {
 
     private String url;
     private Handler handler;
-    private String type;
+    private String type = "";
 
     public GetData(String url, Handler handler, String type) {
         this.url = url;

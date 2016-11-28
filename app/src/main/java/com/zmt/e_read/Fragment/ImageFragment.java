@@ -1,6 +1,5 @@
 package com.zmt.e_read.Fragment;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.zmt.e_read.Adapter.ChannelsAdapter;
-import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.R;
 
@@ -37,7 +34,6 @@ public class ImageFragment extends Fragment {
 
     public static final String FILTER = "com.zmt.e_read.broadCast.adjustImageFab";
     private View view;
-    private List<MovieChannel> channelDataList;
     @BindView(R.id.channelTab) TabLayout channelTab;
     @BindView(R.id.viewPager) ViewPager viewPager;
     @BindView(R.id.fab) FloatingActionButton fab;
@@ -45,7 +41,7 @@ public class ImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_video, container, false);
+        view = inflater.inflate(R.layout.fragment_movie, container, false);
         initViews();
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getContext());
         IntentFilter intentFilter = new IntentFilter();
@@ -119,7 +115,7 @@ public class ImageFragment extends Fragment {
          */
         String [] channelName = getResources().getStringArray(R.array.image_tab);
         String [] channelType = getResources().getStringArray(R.array.image_type);
-        channelDataList = new ArrayList<>();
+        List<MovieChannel> channelDataList = new ArrayList<>();
         for (int i = 0; i < channelName.length; i++) {
             MovieChannel channel = new MovieChannel();
             channel.setName(channelName[i]).setType(channelType[i]);

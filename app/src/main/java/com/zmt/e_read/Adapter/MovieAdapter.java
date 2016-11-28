@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Utils.ProgressViewHolder;
 
 import java.util.List;
 
@@ -86,6 +86,17 @@ public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         @BindView(R.id.release_time) TextView releaseTime;
 
         public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    class ProgressViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.progressBar) ProgressBar progressBar;
+        @BindView(R.id.textView) TextView textView;
+
+        public ProgressViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
