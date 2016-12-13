@@ -5,20 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zmt.e_read.DragGridView.DragBaseAdapter;
+import com.zmt.e_read.View.DragBaseAdapter;
 import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by MintaoZhu on 2016/10/28.

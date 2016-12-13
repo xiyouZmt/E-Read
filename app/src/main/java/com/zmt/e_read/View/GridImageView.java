@@ -1,4 +1,4 @@
-package com.zmt.e_read;
+package com.zmt.e_read.View;
 
 import android.content.Context;
 import android.util.AttributeSet;

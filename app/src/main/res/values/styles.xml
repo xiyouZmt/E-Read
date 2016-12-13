@@ -69,11 +69,11 @@
         <item name="navigation_color">@color/color_8a000000</item>
         <item name="recyclerView_item">@color/color_424242</item>
         <item name="listView_item">@color/color_424242</item>
-        <item name="news_title">@color/color_deffffff</item>
-        <item name="news_digest">@color/color_8affffff</item>
-        <item name="news_time">@color/color_8affffff</item>
-        <item name="movie_title">@color/color_deffffff</item>
-        <item name="movie_time">@color/color_8affffff</item>
+        <!--<item name="news_title">@color/color_deffffff</item>-->
+        <!--<item name="news_digest">@color/color_8affffff</item>-->
+        <!--<item name="news_time">@color/color_8affffff</item>-->
+        <!--<item name="movie_title">@color/color_deffffff</item>-->
+        <!--<item name="movie_time">@color/color_8affffff</item>-->
     </style>
 
 </resources>

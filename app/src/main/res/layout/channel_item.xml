@@ -12,10 +12,8 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:id="@+id/text_item"
-        android:background="@drawable/channel_item_bg"
         android:minHeight="38.0dip"
         android:minWidth="72.0dip"
-        android:textSize="14.0sp"
-        android:textColor="@drawable/channel_item_text_color" />
+        android:textSize="14.0sp" />
 
 </RelativeLayout>

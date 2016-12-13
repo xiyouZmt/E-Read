@@ -20,16 +20,16 @@
     <color name="color_ffffffff">#ffffffff</color>
 
 
-    <color name="color_ffb9b9b9">#ffb9b9b9</color>
-    <color name="color_ff454545">#ff454545</color>
-    <color name="color_ffd2d2d2">#ffd2d2d2</color>
-    <color name="color_fff5f5f5">#fff5f5f5</color>
-    <color name="color_ffd9d9d9">#ffd9d9d9</color>
-    <color name="color_ffefefef">#ffefefef</color>
-    <color name="color_ffcdcdcd">#ffcdcdcd</color>
-    <color name="color_fff9f9f9">#fff9f9f9</color>
-    <color name="color_deffffff">#deffffff</color>
-    <color name="color_8affffff">#8affffff</color>
+    <!--<color name="color_ffb9b9b9">#ffb9b9b9</color>-->
+    <!--<color name="color_ff454545">#ff454545</color>-->
+    <!--<color name="color_ffd2d2d2">#ffd2d2d2</color>-->
+    <!--<color name="color_fff5f5f5">#fff5f5f5</color>-->
+    <!--<color name="color_ffd9d9d9">#ffd9d9d9</color>-->
+    <!--<color name="color_ffefefef">#ffefefef</color>-->
+    <!--<color name="color_ffcdcdcd">#ffcdcdcd</color>-->
+    <!--<color name="color_fff9f9f9">#fff9f9f9</color>-->
+    <!--<color name="color_deffffff">#deffffff</color>-->
+    <!--<color name="color_8affffff">#8affffff</color>-->
 
     <integer-array name="color_array">
         <item>@color/color_03a9f4</item>

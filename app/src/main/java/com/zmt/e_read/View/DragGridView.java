@@ -1,4 +1,4 @@
-package com.zmt.e_read.DragGridView;
+package com.zmt.e_read.View;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -196,7 +196,6 @@ public class DragGridView extends GridView{
 			createDragImage(mDragBitmap, mDownX, mDownY);
 		}
 	};
-
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {
@@ -527,7 +526,6 @@ public class DragGridView extends GridView{
 		animSetXY.playTogether(animX, animY);
 		return animSetXY;
 	}
-
 
 	/**
 	 * item的交换动画效果

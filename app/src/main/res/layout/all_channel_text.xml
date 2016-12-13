@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/all_channel_text"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="频道推荐"
+        android:textSize="18sp"
+        android:textColor="@color/color_ff000000"/>
+
+</LinearLayout>

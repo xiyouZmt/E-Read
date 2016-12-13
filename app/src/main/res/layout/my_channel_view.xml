@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:id="@+id/myChannel"
+        android:background="@color/color_fafafa"
+        android:text="推荐"
+        android:textSize="16sp"
+        android:textColor="@color/color_ff000000"/>
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignRight="@+id/myChannel"
+        android:layout_alignTop="@+id/myChannel"
+        android:id="@+id/delete"
+        android:background="@mipmap/delete"
+        android:visibility="gone"/>
+
+</RelativeLayout>

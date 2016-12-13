@@ -35,12 +35,6 @@ public class ChannelData {
 
     private String type;
 
-//    public ChannelData(Builder builder) {
-//        this.id = builder.id;
-//        this.name = builder.name;
-//        this.type = builder.type;
-//    }
-
     public String getType() {
         return type;
     }
