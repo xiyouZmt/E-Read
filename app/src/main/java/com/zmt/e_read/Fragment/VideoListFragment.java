@@ -2,7 +2,6 @@ package com.zmt.e_read.Fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -13,11 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.VideoView;
 
 import com.zmt.e_read.Adapter.VideoAdapter;
 import com.zmt.e_read.Module.MovieChannel;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.Module.Video;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;

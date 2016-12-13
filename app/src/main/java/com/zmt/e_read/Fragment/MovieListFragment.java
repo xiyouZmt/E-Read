@@ -20,10 +20,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.zmt.e_read.Activity.MovieDetailActivity;
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Adapter.MovieAdapter;
 import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.MovieChannel;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;

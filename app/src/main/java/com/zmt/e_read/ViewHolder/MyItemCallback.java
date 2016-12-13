@@ -38,7 +38,6 @@ public class MyItemCallback extends ItemTouchHelper.Callback {
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         int swipeFlags = 0;
         int dragFlags = 0;
-//        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if(viewHolder instanceof ManageChannelAdapter.MyChannelViewHolder){
             dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END;
         }

@@ -10,15 +10,13 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
-import com.zmt.e_read.Adapter.ChannelsAdapter;
-import com.zmt.e_read.Adapter.DragAdapter;
+import com.zmt.e_read.Adapter.AdapterInterface.ManageItem;
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
+import com.zmt.e_read.Adapter.ItemClickListener;
 import com.zmt.e_read.Adapter.ManageChannelAdapter;
-import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Utils.SpaceItemDecoration;
 import com.zmt.e_read.ViewHolder.MyItemCallback;
 
 import java.util.ArrayList;
@@ -27,12 +25,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddChannel extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class AddChannel extends AppCompatActivity implements OnItemClickListener, ManageItem {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.channelRecycler)
     RecyclerView channelRecycler;
     private List<ManageChannel> allChannelList;
+    private ManageChannelAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +42,75 @@ public class AddChannel extends AppCompatActivity implements AdapterView.OnItemC
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-        switch (parent.getId()){
-            case R.id.myChannel :
-
+    public void onItemClick(View v, int position) {
+        String type = allChannelList.get(position).getType();
+        switch (type){
+            case ManageChannel.MYCHANNEL_VIEW :
+                if(ManageChannelAdapter.edit){
+                    deleteMyChannel(position);
+                }
                 break;
-            case R.id.allChannel :
-
+            case ManageChannel.ALLCHANNEL_VIEW :
+                addToMyChannel(position);
                 break;
         }
+    }
+
+    @Override
+    public void deleteMyChannel(int myChannelPosition) {
+        ManageChannel channel = allChannelList.get(myChannelPosition);
+        int addPosition = 0;
+        for (int i = 0; i < allChannelList.size(); i++) {
+            if(allChannelList.get(i).getType().equals(ManageChannel.ALLCHANNEL_VIEW)){
+                addPosition = i;
+                break;
+            }
+        }
+        /**
+         * 从我的频道删除
+         */
+        allChannelList.remove(myChannelPosition);
+        adapter.notifyItemRemoved(myChannelPosition);
+
+        /**
+         * 添加到所有频道
+         */
+        channel.setType(ManageChannel.ALLCHANNEL_VIEW);
+        if(ManageChannelAdapter.edit){
+            channel.setTag(ManageChannelAdapter.EDIT_ICON);
+        } else {
+            channel.setTag(ManageChannelAdapter.COMPLETE);
+        }
+        allChannelList.add(addPosition - 1, channel);
+        adapter.notifyItemInserted(addPosition - 1);
+    }
+
+    @Override
+    public void addToMyChannel(int allChannelPosition) {
+        ManageChannel channel = allChannelList.get(allChannelPosition);
+        int addPosition = 0;
+        for (int i = 0; i < allChannelList.size(); i++) {
+            if(allChannelList.get(i).getType().equals(ManageChannel.ALLCHANNEL_TEXT)){
+                addPosition = i;
+                break;
+            }
+        }
+        /**
+         * 从所有频道中删除
+         */
+        allChannelList.remove(allChannelPosition);
+        adapter.notifyItemRemoved(allChannelPosition);
+        /**
+         * 添加到我的频道
+         */
+        channel.setType(ManageChannel.MYCHANNEL_VIEW);
+        if(ManageChannelAdapter.edit){
+            channel.setTag(ManageChannelAdapter.EDIT_ICON);
+        } else {
+            channel.setTag(ManageChannelAdapter.COMPLETE);
+        }
+        allChannelList.add(addPosition, channel);
+        adapter.notifyItemInserted(addPosition);
     }
 
     public void initViews() {
@@ -98,7 +157,7 @@ public class AddChannel extends AppCompatActivity implements AdapterView.OnItemC
             allChannelList.add(allChannelData);
         }
 
-        ManageChannelAdapter adapter = new ManageChannelAdapter(allChannelList);
+        adapter = new ManageChannelAdapter(allChannelList, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -114,7 +173,7 @@ public class AddChannel extends AppCompatActivity implements AdapterView.OnItemC
         channelRecycler.setLayoutManager(gridLayoutManager);
         channelRecycler.setAdapter(adapter);
         channelRecycler.setItemAnimator(new DefaultItemAnimator());
-//        channelRecycler.addItemDecoration(new SpaceItemDecoration(8));
+        channelRecycler.addOnItemTouchListener(new ItemClickListener(this, this));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new MyItemCallback(adapter));
         itemTouchHelper.attachToRecyclerView(channelRecycler);
@@ -136,6 +195,7 @@ public class AddChannel extends AppCompatActivity implements AdapterView.OnItemC
 
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
+            ManageChannelAdapter.edit = false;
             finish();
             return true;
         }

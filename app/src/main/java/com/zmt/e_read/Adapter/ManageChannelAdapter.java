@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zmt.e_read.Module.ManageChannel;
+import com.zmt.e_read.Adapter.AdapterInterface.*;
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
+import com.zmt.e_read.Module.*;
 import com.zmt.e_read.R;
 
 import java.util.Collections;
@@ -24,13 +26,15 @@ public class ManageChannelAdapter extends RecyclerView.Adapter implements Exchan
     private final int MY_CHANNEL_VIEW = 0x001;
     private final int ALL_CHANNEL_TEXT = 0x002;
     private final int ALL_CHANNEL_VIEW = 0x003;
-    private final int COMPLETE = 0;
-    private final int EDIT_ICON = 1;
     private List<ManageChannel> channelDataList;
-    private boolean edit = false;
+    private OnItemClickListener clickListener;
+    public  static final int COMPLETE = 0;
+    public  static final int EDIT_ICON = 1;
+    public  static boolean edit = false;
 
-    public ManageChannelAdapter(List<ManageChannel> channelDataList) {
+    public ManageChannelAdapter(List<ManageChannel> channelDataList, com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener clickListener) {
         this.channelDataList = channelDataList;
+        this.clickListener = clickListener;
     }
 
     @Override
@@ -116,27 +120,27 @@ public class ManageChannelAdapter extends RecyclerView.Adapter implements Exchan
             } else {
                 viewHolder.deleteChannel.setVisibility(View.GONE);
             }
-            viewHolder.myChannel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(viewHolder.deleteChannel.getVisibility() == View.VISIBLE){
-                        deleteMyChannel(position);
-                    } else {
-
-                    }
-                }
-            });
+//            viewHolder.myChannel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if(viewHolder.deleteChannel.getVisibility() == View.VISIBLE){
+//                        clickListener.onItemClick(v, position);
+//                    } else {
+//
+//                    }
+//                }
+//            });
         } else if(holder instanceof AllChannelTextViewHolder){
 
         } else if(holder instanceof AllChannelViewHolder){
             AllChannelViewHolder viewHolder = (AllChannelViewHolder) holder;
             viewHolder.allChannel.setText(channelDataList.get(position).getName());
-            viewHolder.allChannel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addToMyChannel(position);
-                }
-            });
+//            viewHolder.allChannel.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    clickListener.onItemClick(v, position);
+//                }
+//            });
         }
     }
 
@@ -156,56 +160,59 @@ public class ManageChannelAdapter extends RecyclerView.Adapter implements Exchan
         }
     }
 
-    @Override
-    public void deleteMyChannel(int myChannelPosition) {
-        ManageChannel channel = channelDataList.get(myChannelPosition);
-        int addPosition = 0;
-        for (int i = 0; i < channelDataList.size(); i++) {
-            if(channelDataList.get(i).getType().equals(ManageChannel.ALLCHANNEL_VIEW)){
-                addPosition = i;
-                break;
-            }
-        }
-        /**
-         * 从我的频道删除
-         */
-        channelDataList.remove(myChannelPosition);
-        notifyItemRemoved(myChannelPosition);
-
-        /**
-         * 添加到所有频道
-         */
-        channel.setType(ManageChannel.ALLCHANNEL_VIEW);
-        channelDataList.add(addPosition - 1, channel);
-        notifyItemInserted(addPosition - 1);
-
-    }
-
-    @Override
-    public void addToMyChannel(int allChannelPosition) {
-        ManageChannel channel = channelDataList.get(allChannelPosition);
-        int addPosition = 0;
-        for (int i = 0; i < channelDataList.size(); i++) {
-            if(channelDataList.get(i).getType().equals(ManageChannel.ALLCHANNEL_TEXT)){
-                addPosition = i;
-                break;
-            }
-        }
-        /**
-         * 从所有频道中删除
-         */
-        channelDataList.remove(allChannelPosition);
-        notifyItemRemoved(allChannelPosition);
-        /**
-         * 添加到我的频道
-         */
-        channel.setType(ManageChannel.MYCHANNEL_VIEW);
-        if(edit){
-            channel.setTag(EDIT_ICON);
-        }
-        channelDataList.add(addPosition, channel);
-        notifyItemInserted(addPosition);
-    }
+//    @Override
+//    public void deleteMyChannel(int myChannelPosition) {
+//        ManageChannel channel = channelDataList.get(myChannelPosition);
+//        int addPosition = 0;
+//        for (int i = 0; i < channelDataList.size(); i++) {
+//            if(channelDataList.get(i).getType().equals(ManageChannel.ALLCHANNEL_VIEW)){
+//                addPosition = i;
+//                break;
+//            }
+//        }
+//        /**
+//         * 从我的频道删除
+//         */
+//        channelDataList.remove(myChannelPosition);
+//        notifyItemRemoved(myChannelPosition);
+//        notifyDataSetChanged();
+//
+//        /**
+//         * 添加到所有频道
+//         */
+//        channel.setType(ManageChannel.ALLCHANNEL_VIEW);
+//        channelDataList.add(addPosition - 1, channel);
+//        notifyItemInserted(addPosition - 1);
+//        notifyDataSetChanged();
+//    }
+//
+//    @Override
+//    public void addToMyChannel(int allChannelPosition) {
+//        ManageChannel channel = channelDataList.get(allChannelPosition);
+//        int addPosition = 0;
+//        for (int i = 0; i < channelDataList.size(); i++) {
+//            if(channelDataList.get(i).getType().equals(ManageChannel.ALLCHANNEL_TEXT)){
+//                addPosition = i;
+//                break;
+//            }
+//        }
+//        /**
+//         * 从所有频道中删除
+//         */
+//        channelDataList.remove(allChannelPosition);
+//        notifyItemRemoved(allChannelPosition);
+//        notifyDataSetChanged();
+//        /**
+//         * 添加到我的频道
+//         */
+//        channel.setType(ManageChannel.MYCHANNEL_VIEW);
+//        if(edit){
+//            channel.setTag(EDIT_ICON);
+//        }
+//        channelDataList.add(addPosition, channel);
+//        notifyItemInserted(addPosition);
+//        notifyDataSetChanged();
+//    }
 
     public class MyChannelTextViewHolder extends RecyclerView.ViewHolder{
 

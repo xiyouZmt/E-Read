@@ -20,11 +20,10 @@ import android.widget.ProgressBar;
 
 import com.zmt.e_read.Activity.NewsDetailActivity;
 import com.zmt.e_read.Activity.PhotoActivity;
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Adapter.NewsAdapter;
-import com.zmt.e_read.Animator.FABAnimator;
 import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.News;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;

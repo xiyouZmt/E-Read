@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Module.Movie;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 
 import java.util.List;

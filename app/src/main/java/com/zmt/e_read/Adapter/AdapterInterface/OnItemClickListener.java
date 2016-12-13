@@ -1,9 +1,9 @@
-package com.zmt.e_read.Module;
+package com.zmt.e_read.Adapter.AdapterInterface;
 
 import android.view.View;
 
 /**
- * Created by Dangelo on 2016/9/27.
+ * Created by MintaoZhu on 2016/12/13.
  */
 public interface OnItemClickListener {
     void onItemClick(View v, int position);

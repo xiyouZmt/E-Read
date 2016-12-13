@@ -11,8 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Module.News;
-import com.zmt.e_read.Module.OnItemClickListener;
 import com.zmt.e_read.R;
 
 import java.util.List;
