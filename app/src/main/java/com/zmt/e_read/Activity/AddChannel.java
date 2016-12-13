@@ -157,7 +157,7 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
             allChannelList.add(allChannelData);
         }
 
-        adapter = new ManageChannelAdapter(allChannelList, this);
+        adapter = new ManageChannelAdapter(allChannelList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
