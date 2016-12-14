@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.zmt.e_read.Adapter.ManageChannelAdapter;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
 import com.zmt.e_read.ViewHolder.MyItemCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,7 +138,19 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
         String[] myChannelID = getResources().getStringArray(R.array.channelID);
         for (int i = 0; i < myChannelName.length; i++) {
             ManageChannel myChannelData = new ManageChannel();
-            myChannelData.setName(myChannelName[i]).setId(myChannelID[i]).setType(ManageChannel.MYCHANNEL_VIEW);
+            String style;
+            switch (myChannelName[i]){
+                case "头条" :
+                    style = "headline/";
+                    break;
+                case "房产" :
+                    style = "house/";
+                    break;
+                default :
+                    style = "list/";
+                    break;
+            }
+            myChannelData.setName(myChannelName[i]).setId(myChannelID[i]).setStyle(style).setType(ManageChannel.MYCHANNEL_VIEW);
             allChannelList.add(myChannelData);
         }
 
@@ -153,7 +168,19 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
         String[] allChannelID = getResources().getStringArray(R.array.allChannelID);
         for (int i = 0; i < allChannelName.length; i++) {
             ManageChannel allChannelData = new ManageChannel();
-            allChannelData.setName(allChannelName[i]).setId(allChannelID[i]).setType(ManageChannel.ALLCHANNEL_VIEW);
+            String style;
+            switch (allChannelName[i]){
+                case "头条" :
+                    style = "headline/";
+                    break;
+                case "房产" :
+                    style = "house/";
+                    break;
+                default :
+                    style = "list/";
+                    break;
+            }
+            allChannelData.setName(allChannelName[i]).setId(allChannelID[i]).setStyle(style).setType(ManageChannel.ALLCHANNEL_VIEW);
             allChannelList.add(allChannelData);
         }
 
@@ -197,9 +224,17 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
         if (id == android.R.id.home) {
             ManageChannelAdapter.edit = false;
             finish();
+            EventBus.getDefault().post(allChannelList);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        EventBus.getDefault().post(allChannelList);
+        finish();
+        return super.onKeyDown(keyCode, event);
     }
 }

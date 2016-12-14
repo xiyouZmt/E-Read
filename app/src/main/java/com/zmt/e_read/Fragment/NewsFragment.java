@@ -10,7 +10,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,12 @@ import android.widget.ImageView;
 import com.zmt.e_read.Activity.AddChannel;
 import com.zmt.e_read.Adapter.ChannelsAdapter;
 import com.zmt.e_read.Module.ChannelData;
+import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,9 +41,10 @@ import butterknife.OnClick;
 public class NewsFragment extends Fragment {
 
     public static final String FILTER = "com.zmt.e_read.broadCast.adjustNewsFab";
-    private final int ADD_CHANNEL = 0;
 
     private View view;
+    private List<Fragment> newsFragmentList;
+    private List<String> tabNameList;
     @BindView(R.id.channelTab)
     TabLayout channelTab;
     @BindView(R.id.viewPager)
@@ -62,7 +67,6 @@ public class NewsFragment extends Fragment {
                 Animation animation;
                 if (intent.getStringExtra("direction").equals("up")) {
                     if (fab.getVisibility() == View.VISIBLE) {
-//                        FABAnimator.hideFAB(fab, fab.getHeight());
                         animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_out);
                         animation.setAnimationListener(new Animation.AnimationListener() {
                             @Override
@@ -84,7 +88,6 @@ public class NewsFragment extends Fragment {
                     }
                 } else {
                     if (fab.getVisibility() == View.GONE) {
-//                        FABAnimator.showFAB(fab, fab.getHeight());
                         animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_in);
                         animation.setAnimationListener(new Animation.AnimationListener() {
                             @Override
@@ -115,21 +118,27 @@ public class NewsFragment extends Fragment {
     @OnClick(R.id.addChannel)
     public void onClick() {
         Intent intent = new Intent(getActivity(), AddChannel.class);
-        startActivityForResult(intent, ADD_CHANNEL);
+        startActivity(intent);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case ADD_CHANNEL :
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 
-                break;
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onMessageEvent(List<ManageChannel> allChannelList){
+        if(allChannelList != null){
+            reSetTabLayout(allChannelList);
         }
     }
 
     public void initViews() {
         ButterKnife.bind(this, view);
-        List<Fragment> newsFragmentList = new ArrayList<>();
+        EventBus.getDefault().register(this);
+        newsFragmentList = new ArrayList<>();
+        tabNameList = new ArrayList<>();
 
         /**
          * 设置TabLayout模式
@@ -162,7 +171,7 @@ public class NewsFragment extends Fragment {
         /**
          * 为TabLayout添加tab名称
          */
-        for (int i = 0; i < channelID.length; i++) {
+        for (int i = 0; i < channelDataList.size(); i++) {
             NewsListFragment newsListFragment = new NewsListFragment();
             Bundle bundle = new Bundle();
             bundle.putString(ChannelData.channelID, channelDataList.get(i).getId());
@@ -207,5 +216,39 @@ public class NewsFragment extends Fragment {
                 LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
             }
         });
+    }
+
+    public void reSetTabLayout(List<ManageChannel> allChannelList){
+        newsFragmentList.clear();
+        tabNameList.clear();
+        /**
+         * 为TabLayout添加tab名称
+         */
+        for (int i = 1; i < allChannelList.size(); i++) {
+            NewsListFragment newsListFragment = new NewsListFragment();
+            ManageChannel channel = allChannelList.get(i);
+            if(channel.getType().equals(ManageChannel.ALLCHANNEL_TEXT)){
+                break;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString(ChannelData.channelID, channel.getId());
+            bundle.putString(ChannelData.channelName, channel.getName());
+            bundle.putString(ChannelData.channelType, channel.getStyle());
+            newsListFragment.setArguments(bundle);
+            newsFragmentList.add(newsListFragment);
+            tabNameList.add(channel.getName());
+            channelTab.addTab(channelTab.newTab().setText(channel.getName()));
+        }
+
+        /**
+         * 加载viewPager的adapter
+         */
+        ChannelsAdapter adapter = new ChannelsAdapter(getChildFragmentManager(),
+                tabNameList, newsFragmentList);
+        /**
+         * 为TabLayout设置viewPager
+         */
+        viewPager.setAdapter(adapter);
+        channelTab.setupWithViewPager(viewPager);
     }
 }

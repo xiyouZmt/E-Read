@@ -128,6 +128,7 @@
     <orderEntry type="library" exported="" name="support-core-ui-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-utils-24.2.1" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-3.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.2.1" level="project" />
     <orderEntry type="library" exported="" name="butterknife-8.1.0" level="project" />

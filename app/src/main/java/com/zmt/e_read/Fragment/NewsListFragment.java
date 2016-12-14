@@ -28,6 +28,8 @@ import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -211,5 +213,4 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
             }
         });
     }
-
 }

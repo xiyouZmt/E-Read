@@ -14,9 +14,20 @@ public class ManageChannel {
 
     private String name;
 
+    private String style;
+
     private String type;
 
     private int tag = 0;
+
+    public String getStyle() {
+        return style;
+    }
+
+    public ManageChannel setStyle(String style) {
+        this.style = style;
+        return this;
+    }
 
     public int getTag() {
         return tag;

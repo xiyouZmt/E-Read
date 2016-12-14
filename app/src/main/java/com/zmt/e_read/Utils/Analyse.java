@@ -33,7 +33,12 @@ public class Analyse {
                 newsList.remove(newsList.size() - 1);
             }
             JSONObject jsonObject = new JSONObject(jsonData);
-            JSONArray jsonArray = jsonObject.getJSONArray(channelID.substring(0, channelID.length() - 1));
+            if(channelID.equals("5YyX5Lqs/")){  //房产对应的json数组的键为北京
+                channelID = "北京";
+            } else {
+                channelID = channelID.substring(0, channelID.length() - 1);
+            }
+            JSONArray jsonArray = jsonObject.getJSONArray(channelID);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject newsObject = (JSONObject)jsonArray.get(i);
                 String title = newsObject.getString("title");
@@ -50,7 +55,7 @@ public class Analyse {
                     if(newsObject.has("url_3w")){
                         contentUrl = newsObject.getString("url_3w");
                     } else {
-                        contentUrl = newsObject.getString("url_3w");
+                        contentUrl = newsObject.getString("url");
                     }
                     news.setSource(source).setDigest(content).setDocId(docId).setContentUrl(contentUrl);
                 } else {
