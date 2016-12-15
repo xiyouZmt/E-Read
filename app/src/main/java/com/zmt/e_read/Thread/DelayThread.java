@@ -5,7 +5,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.zmt.e_read.Adapter.VideoAdapter;
-import com.zmt.e_read.ViewHolder.ViewHolder;
+import com.zmt.e_read.Adapter.ViewHolder.ViewHolder;
 
 /**
  * Created by MintaoZhu on 2016/11/27.

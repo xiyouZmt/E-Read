@@ -26,7 +26,7 @@ import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.AnalyseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +102,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
-                        Analyse analyse = new Analyse();
+                        AnalyseUtils analyse = new AnalyseUtils();
                         analyse.analyseNewsList(loading, channelID, object.toString(), newsList);
                         if(newsAdapter == null){
                             newsAdapter = new NewsAdapter(getContext(), newsList, NewsListFragment.this);

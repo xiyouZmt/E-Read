@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Created by Dangelo on 2016/9/28.
  */
-public class Analyse {
+public class AnalyseUtils {
 
     public void analyseNewsList(boolean loading, String channelID, String jsonData, List<News> newsList){
         try {

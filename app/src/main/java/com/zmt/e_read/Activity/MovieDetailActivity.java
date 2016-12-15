@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -22,7 +21,7 @@ import com.squareup.picasso.Picasso;
 import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.AnalyseUtils;
 import com.zmt.e_read.Utils.ThunderUtils;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class MovieDetailActivity extends SwipeBackActivity {
                     case "server error" :
                         break;
                     default :
-                        Analyse analyse = new Analyse();
+                        AnalyseUtils analyse = new AnalyseUtils();
                         analyse.analyseMovieDetail(object.toString(), map);
                         showMovieImage(map);
                         ignorePrefix(list, map);

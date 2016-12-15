@@ -25,7 +25,7 @@ import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.AnalyseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class ImageListFragment extends Fragment{
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
-                        Analyse analyse = new Analyse();
+                        AnalyseUtils analyse = new AnalyseUtils();
                         if(channelName.equals(image_tab[0])){
                             analyse.analyseMeiZiImage(loading, object.toString(), imageList);
                         } else if(channelName.equals(image_tab[1])) {

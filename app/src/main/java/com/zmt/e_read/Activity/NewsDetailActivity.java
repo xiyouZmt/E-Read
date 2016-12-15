@@ -19,7 +19,8 @@ import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Thread.HtmlHttpImageGetter;
+import com.zmt.e_read.Utils.AnalyseUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,11 +67,11 @@ public class NewsDetailActivity extends SwipeBackActivity {
                     case "server error" :
                         break;
                     default :
-                        Analyse analyse = new Analyse();
+                        AnalyseUtils analyse = new AnalyseUtils();
                         news_source.setText(news.getSource() + " " + news.getTime());
                         String news_detail = analyse.analyseNewsDetail(news.getDocId(), object.toString());
                         if(news_detail != null){
-                            news_content.setText(Html.fromHtml(news_detail, new com.zmt.e_read.Utils.HtmlHttpImageGetter(news_content), null));
+                            news_content.setText(Html.fromHtml(news_detail, new HtmlHttpImageGetter(news_content), null));
                         }
                         break;
                 }

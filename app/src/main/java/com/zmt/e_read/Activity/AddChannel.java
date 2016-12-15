@@ -2,7 +2,6 @@ package com.zmt.e_read.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,15 +20,13 @@ import com.zmt.e_read.Adapter.ManageChannelAdapter;
 import com.zmt.e_read.Fragment.NewsFragment;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
-import com.zmt.e_read.ViewHolder.MyItemCallback;
+import com.zmt.e_read.Adapter.ViewHolder.MyItemCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;

@@ -1,4 +1,4 @@
-package com.zmt.e_read.ViewHolder;
+package com.zmt.e_read.Adapter.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;

@@ -27,12 +27,6 @@ public class OkHttpUtils {
         try {
             Response response = okHttpClient.newCall(request).execute();
             if(response.code() == 200){
-//                BufferedReader reader = new BufferedReader(response.body().charStream());
-//                String line;
-//                while ((line = reader.readLine()) != null){
-//                    builder.append(line);
-//                }
-//                reader.close();
                 byte [] bytes = response.body().bytes();
                 builder.append(new String(bytes));
                 return builder.toString();
@@ -64,5 +58,4 @@ public class OkHttpUtils {
             return "network error";
         }
     }
-
 }

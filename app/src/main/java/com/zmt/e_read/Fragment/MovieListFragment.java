@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -26,7 +25,7 @@ import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.AnalyseUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +96,7 @@ public class MovieListFragment extends Fragment implements OnItemClickListener {
                         Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
-                        Analyse analyse = new Analyse();
+                        AnalyseUtils analyse = new AnalyseUtils();
                         String movieCount = analyse.analyseMovieList(loading, channelType, Movie.GET, object.toString(), movieList);
                         pageCount = Integer.parseInt(movieCount.substring(movieCount.indexOf("共") + 1, movieCount.indexOf("页")));
                         if(adapter == null){

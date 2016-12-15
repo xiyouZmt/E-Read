@@ -3,7 +3,6 @@ package com.zmt.e_read.Adapter;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.zmt.e_read.Module.Video;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.DelayThread;
-import com.zmt.e_read.ViewHolder.ViewHolder;
+import com.zmt.e_read.Adapter.ViewHolder.ViewHolder;
 
 import java.util.List;
 import java.util.Timer;

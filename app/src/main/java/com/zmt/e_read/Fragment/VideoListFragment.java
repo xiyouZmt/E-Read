@@ -18,8 +18,8 @@ import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.Module.Video;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
-import com.zmt.e_read.ViewHolder.ViewHolder;
+import com.zmt.e_read.Utils.AnalyseUtils;
+import com.zmt.e_read.Adapter.ViewHolder.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class VideoListFragment extends Fragment {
                             Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                             break;
                         default :
-                            Analyse analyse = new Analyse();
+                            AnalyseUtils analyse = new AnalyseUtils();
                             analyse.analyseVideoList(loading, channelID, object.toString(), videoList);
                             if(adapter == null){
                                 adapter = new VideoAdapter(getContext(), videoList, handler);

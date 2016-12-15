@@ -22,7 +22,7 @@ import com.zmt.e_read.Module.Movie;
 import com.zmt.e_read.Module.MovieChannel;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
-import com.zmt.e_read.Utils.Analyse;
+import com.zmt.e_read.Utils.AnalyseUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -69,7 +69,7 @@ public class SearchActivity extends SwipeBackActivity implements OnItemClickList
                         break;
                     default :
                         try{
-                            Analyse analyse = new Analyse();
+                            AnalyseUtils analyse = new AnalyseUtils();
                             analyse.analyseMovieList(false, MovieChannel.NewestFilm, Movie.SEARCH, object.toString(), movieList);
                             if(adapter == null){
                                 adapter = new MovieAdapter(movieList, SearchActivity.this);
