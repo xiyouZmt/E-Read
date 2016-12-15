@@ -22,13 +22,11 @@ import com.zmt.e_read.Activity.NewsDetailActivity;
 import com.zmt.e_read.Activity.PhotoActivity;
 import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Adapter.NewsAdapter;
-import com.zmt.e_read.Module.ChannelData;
+import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
 import com.zmt.e_read.Utils.Analyse;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +65,11 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
          */
         Bundle bundle;
         if((bundle = getArguments()) != null){
-            channelType = bundle.getString(ChannelData.channelType);
-            channelID = bundle.getString(ChannelData.channelID);
+            channelType = bundle.getString(ManageChannel.CHANNELSTYLE);
+            channelID = bundle.getString(ManageChannel.CHANNELID);
         }
         progressBar.setVisibility(View.VISIBLE);
-        url = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
+        url = ManageChannel.NEWS_DETAIL + channelType + channelID + start + ManageChannel.NEWS_COUNT;
         GetData getNewsList = new GetData(url, handler, News.TAG);
         Thread thread = new Thread(getNewsList, "GetData");
         thread.start();
@@ -156,7 +154,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                  */
                 loading = true;
                 start += 20;
-                String getMoreUrl = ChannelData.NEWS_DETAIL + channelType + channelID + start + ChannelData.NEWS_COUNT;
+                String getMoreUrl = ManageChannel.NEWS_DETAIL + channelType + channelID + start + ManageChannel.NEWS_COUNT;
                 GetData getNewsList = new GetData(getMoreUrl, handler, News.TAG);
                 Thread thread = new Thread(getNewsList, "GetData");
                 thread.start();
@@ -185,7 +183,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
          * 获取fragment对应的频道ID
          */
         Object object;
-        if((object = getArguments().get(ChannelData.channelID)) != null){
+        if((object = getArguments().get(ManageChannel.CHANNELID)) != null){
             channelID = object.toString();
         }
 

@@ -1,6 +1,8 @@
 package com.zmt.e_read.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,13 +18,18 @@ import com.zmt.e_read.Adapter.AdapterInterface.ManageItem;
 import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Adapter.ItemClickListener;
 import com.zmt.e_read.Adapter.ManageChannelAdapter;
+import com.zmt.e_read.Fragment.NewsFragment;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
 import com.zmt.e_read.ViewHolder.MyItemCallback;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +47,6 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_channel);
-        ButterKnife.bind(this);
         initViews();
     }
 
@@ -116,6 +122,11 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
         adapter.notifyItemInserted(addPosition);
     }
 
+    @Subscribe(threadMode = ThreadMode.POSTING)
+    public void onMessageEvent(List<ManageChannel> allChannelList){
+        this.allChannelList = allChannelList;
+    }
+
     public void initViews() {
         ButterKnife.bind(this);
         toolbar.setTitle("频道管理");
@@ -123,67 +134,73 @@ public class AddChannel extends AppCompatActivity implements OnItemClickListener
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        allChannelList = new ArrayList<>();
-        /**
-         * header-part
-         */
-        ManageChannel myChannel = new ManageChannel();
-        myChannel.setName("").setId("").setType(ManageChannel.MYCHANNEL_TEXT);
-        allChannelList.add(myChannel);
+        Intent intent;
+        if((intent = getIntent()) != null){
+            if(intent.getParcelableArrayListExtra(NewsFragment.ALLCHANNELLIST) == null){
+                allChannelList = new ArrayList<>();
+                /**
+                 * header-part
+                 */
+                ManageChannel myChannel = new ManageChannel();
+                myChannel.setName("").setId("").setType(ManageChannel.MYCHANNEL_TEXT);
+                allChannelList.add(myChannel);
 
-        /**
-         * user channel data
-         */
-        String[] myChannelName = getResources().getStringArray(R.array.channelName);
-        String[] myChannelID = getResources().getStringArray(R.array.channelID);
-        for (int i = 0; i < myChannelName.length; i++) {
-            ManageChannel myChannelData = new ManageChannel();
-            String style;
-            switch (myChannelName[i]){
-                case "头条" :
-                    style = "headline/";
-                    break;
-                case "房产" :
-                    style = "house/";
-                    break;
-                default :
-                    style = "list/";
-                    break;
+                /**
+                 * user channel data
+                 */
+                String[] myChannelName = getResources().getStringArray(R.array.channelName);
+                String[] myChannelID = getResources().getStringArray(R.array.channelID);
+                for (int i = 0; i < myChannelName.length; i++) {
+                    ManageChannel myChannelData = new ManageChannel();
+                    String style;
+                    switch (myChannelName[i]){
+                        case "头条" :
+                            style = "headline/";
+                            break;
+                        case "房产" :
+                            style = "house/";
+                            break;
+                        default :
+                            style = "list/";
+                            break;
+                    }
+                    myChannelData.setName(myChannelName[i]).setId(myChannelID[i]).setStyle(style).setType(ManageChannel.MYCHANNEL_VIEW);
+                    allChannelList.add(myChannelData);
+                }
+
+                /**
+                 * middle
+                 */
+                ManageChannel allChannel = new ManageChannel();
+                allChannel.setName("").setId("").setType(ManageChannel.ALLCHANNEL_TEXT);
+                allChannelList.add(allChannel);
+
+                /**
+                 * all channel data
+                 */
+                String[] allChannelName = getResources().getStringArray(R.array.allChannelName);
+                String[] allChannelID = getResources().getStringArray(R.array.allChannelID);
+                for (int i = 0; i < allChannelName.length; i++) {
+                    ManageChannel allChannelData = new ManageChannel();
+                    String style;
+                    switch (allChannelName[i]){
+                        case "头条" :
+                            style = "headline/";
+                            break;
+                        case "房产" :
+                            style = "house/";
+                            break;
+                        default :
+                            style = "list/";
+                            break;
+                    }
+                    allChannelData.setName(allChannelName[i]).setId(allChannelID[i]).setStyle(style).setType(ManageChannel.ALLCHANNEL_VIEW);
+                    allChannelList.add(allChannelData);
+                }
+            } else {
+                allChannelList = intent.getParcelableArrayListExtra(NewsFragment.ALLCHANNELLIST);
             }
-            myChannelData.setName(myChannelName[i]).setId(myChannelID[i]).setStyle(style).setType(ManageChannel.MYCHANNEL_VIEW);
-            allChannelList.add(myChannelData);
         }
-
-        /**
-         * middle
-         */
-        ManageChannel allChannel = new ManageChannel();
-        allChannel.setName("").setId("").setType(ManageChannel.ALLCHANNEL_TEXT);
-        allChannelList.add(allChannel);
-
-        /**
-         * all channel data
-         */
-        String[] allChannelName = getResources().getStringArray(R.array.allChannelName);
-        String[] allChannelID = getResources().getStringArray(R.array.allChannelID);
-        for (int i = 0; i < allChannelName.length; i++) {
-            ManageChannel allChannelData = new ManageChannel();
-            String style;
-            switch (allChannelName[i]){
-                case "头条" :
-                    style = "headline/";
-                    break;
-                case "房产" :
-                    style = "house/";
-                    break;
-                default :
-                    style = "list/";
-                    break;
-            }
-            allChannelData.setName(allChannelName[i]).setId(allChannelID[i]).setStyle(style).setType(ManageChannel.ALLCHANNEL_VIEW);
-            allChannelList.add(allChannelData);
-        }
-
         adapter = new ManageChannelAdapter(allChannelList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {

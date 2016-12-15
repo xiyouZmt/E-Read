@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
@@ -16,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-import com.zmt.e_read.Module.ChannelData;
+import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.Module.News;
 import com.zmt.e_read.R;
 import com.zmt.e_read.Thread.GetData;
@@ -97,7 +96,7 @@ public class NewsDetailActivity extends SwipeBackActivity {
                 .placeholder(R.drawable.ic_loading)
                 .error(R.drawable.ic_load_fail)
                 .into(news_image);
-        contentUrl = ChannelData.NEWS_DETAIL + news.getDocId() + ChannelData.END_DETAIL;
+        contentUrl = ManageChannel.NEWS_DETAIL + news.getDocId() + ManageChannel.END_DETAIL;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

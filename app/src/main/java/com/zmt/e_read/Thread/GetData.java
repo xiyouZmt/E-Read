@@ -11,7 +11,7 @@ import com.zmt.e_read.Utils.OkHttpUtils;
  */
 public class GetData implements Runnable {
 
-    private String url;
+    private final String url;
     private Handler handler;
     private String type = "";
 
@@ -23,15 +23,17 @@ public class GetData implements Runnable {
 
     @Override
     public void run() {
-        OkHttpUtils okHttpUtils = new OkHttpUtils(url);
-        String result;
-        if(type.equals(Movie.TAG)){
-            result = okHttpUtils.getMovieData();
-        } else {
-            result = okHttpUtils.getNewsData();
+        synchronized (url){
+            OkHttpUtils okHttpUtils = new OkHttpUtils(url);
+            String result;
+            if(type.equals(Movie.TAG)){
+                result = okHttpUtils.getMovieData();
+            } else {
+                result = okHttpUtils.getNewsData();
+            }
+            Message msg = new Message();
+            msg.obj = result;
+            handler.sendMessage(msg);
         }
-        Message msg = new Message();
-        msg.obj = result;
-        handler.sendMessage(msg);
     }
 }

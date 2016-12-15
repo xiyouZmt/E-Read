@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -19,7 +20,6 @@ import android.widget.ImageView;
 
 import com.zmt.e_read.Activity.AddChannel;
 import com.zmt.e_read.Adapter.ChannelsAdapter;
-import com.zmt.e_read.Module.ChannelData;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
 
@@ -29,6 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,8 +42,11 @@ import butterknife.OnClick;
 public class NewsFragment extends Fragment {
 
     public static final String FILTER = "com.zmt.e_read.broadCast.adjustNewsFab";
+    public static final String ALLCHANNELLIST = "allChannelList";
 
     private View view;
+    private List<ManageChannel> userChannelList;
+    private List<ManageChannel> allChannelList;
     private List<Fragment> newsFragmentList;
     private List<String> tabNameList;
     @BindView(R.id.channelTab)
@@ -111,25 +115,20 @@ public class NewsFragment extends Fragment {
             }
         };
         manager.registerReceiver(receiver, intentFilter);
-        ButterKnife.bind(this, view);
         return view;
     }
 
     @OnClick(R.id.addChannel)
     public void onClick() {
         Intent intent = new Intent(getActivity(), AddChannel.class);
+        intent.putParcelableArrayListExtra(ALLCHANNELLIST, (ArrayList<? extends Parcelable>) allChannelList);
         startActivity(intent);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onMessageEvent(List<ManageChannel> allChannelList){
         if(allChannelList != null){
+            this.allChannelList = allChannelList;
             reSetTabLayout(allChannelList);
         }
     }
@@ -143,43 +142,43 @@ public class NewsFragment extends Fragment {
         /**
          * 设置TabLayout模式
          */
-        channelTab.setTabMode(TabLayout.MODE_FIXED);
+        channelTab.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         /**
          * 初始化channelData对象
          */
         String[] channelName = getResources().getStringArray(R.array.channelName);
         String[] channelID = getResources().getStringArray(R.array.channelID);
-        List<ChannelData> channelDataList = new ArrayList<>();
+        userChannelList = new ArrayList<>();
         for (int i = 0; i < channelID.length; i++) {
-            ChannelData channelData = new ChannelData();
-            channelData.setId(channelID[i]).setName(channelName[i]);
+            ManageChannel channelData = new ManageChannel();
+            channelData.setId(channelID[i]).setName(channelName[i]).setType(ManageChannel.MYCHANNEL_VIEW);
             switch (channelData.getName()) {
-                case ChannelData.HEADLINE:
-                    channelData.setType(ChannelData.HEADLINE_TYPE);
+                case ManageChannel.HEADLINE:
+                    channelData.setStyle(ManageChannel.HEADLINE_TYPE);
                     break;
-                case ChannelData.HOUSE:
-                    channelData.setType(ChannelData.HOUSE_TYPE);
+                case ManageChannel.HOUSE:
+                    channelData.setStyle(ManageChannel.HOUSE_TYPE);
                     break;
                 default:
-                    channelData.setType(ChannelData.OTHER_TYPE);
+                    channelData.setStyle(ManageChannel.OTHER_TYPE);
                     break;
             }
-            channelDataList.add(channelData);
+            userChannelList.add(channelData);
         }
 
         /**
          * 为TabLayout添加tab名称
          */
-        for (int i = 0; i < channelDataList.size(); i++) {
+        for (int i = 0; i < userChannelList.size(); i++) {
             NewsListFragment newsListFragment = new NewsListFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(ChannelData.channelID, channelDataList.get(i).getId());
-            bundle.putString(ChannelData.channelName, channelDataList.get(i).getName());
-            bundle.putString(ChannelData.channelType, channelDataList.get(i).getType());
+            bundle.putString(ManageChannel.CHANNELID, userChannelList.get(i).getId());
+            bundle.putString(ManageChannel.CHANNELNAME, userChannelList.get(i).getName());
+            bundle.putString(ManageChannel.CHANNELSTYLE, userChannelList.get(i).getStyle());
             newsListFragment.setArguments(bundle);
             newsFragmentList.add(newsListFragment);
-            channelTab.addTab(channelTab.newTab().setText(channelDataList.get(i).getName()));
+            channelTab.addTab(channelTab.newTab().setText(userChannelList.get(i).getName()));
         }
 
         /**
@@ -231,9 +230,9 @@ public class NewsFragment extends Fragment {
                 break;
             }
             Bundle bundle = new Bundle();
-            bundle.putString(ChannelData.channelID, channel.getId());
-            bundle.putString(ChannelData.channelName, channel.getName());
-            bundle.putString(ChannelData.channelType, channel.getStyle());
+            bundle.putString(ManageChannel.CHANNELID, channel.getId());
+            bundle.putString(ManageChannel.CHANNELNAME, channel.getName());
+            bundle.putString(ManageChannel.CHANNELSTYLE, channel.getStyle());
             newsListFragment.setArguments(bundle);
             newsFragmentList.add(newsListFragment);
             tabNameList.add(channel.getName());
@@ -250,5 +249,11 @@ public class NewsFragment extends Fragment {
          */
         viewPager.setAdapter(adapter);
         channelTab.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
