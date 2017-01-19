@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:id="@+id/toolbar"
-                app:background="?attr/toolbar_color"
+                app:background="@color/color_03a9f4"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
@@ -57,7 +57,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:background="?attr/detail_color"
+            app:background="@color/color_fafafa"
             android:padding="16dp">
 
             <TextView

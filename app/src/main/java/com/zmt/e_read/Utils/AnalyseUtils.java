@@ -97,31 +97,31 @@ public class AnalyseUtils {
         }
     }
 
-    public void analyseZhuangBiImage(boolean loading, String html, List<Image> imageList){
-        if(!loading){
-            imageList.clear();
-        } else if(imageList.size() != 0) {
-            imageList.remove(imageList.size() - 1);
-        }
-        Document document = Jsoup.parse(html);
-        Elements elements = document.getElementsByClass("picture-list");
-        for (Element element : elements) {
-            if (element.tagName().equals("div")){
-                for (Element ele : element.getAllElements()) {
-                    if(ele.tagName().equals("a") && !ele.attr("href").equals("")){
-                        Image image = new Image();
-                        image.setImageUrl(ele.attr("href"));
-                        if(image.getImageUrl().endsWith(Image.GIF)){
-                            image.setImageDesc(Image.GIF);
-                        } else {
-                            image.setImageDesc(Image.JPG);
-                        }
-                        imageList.add(image);
-                    }
-                }
-            }
-        }
-    }
+//    public void analyseZhuangBiImage(boolean loading, String html, List<Image> imageList){
+//        if(!loading){
+//            imageList.clear();
+//        } else if(imageList.size() != 0) {
+//            imageList.remove(imageList.size() - 1);
+//        }
+//        Document document = Jsoup.parse(html);
+//        Elements elements = document.getElementsByClass("picture-list");
+//        for (Element element : elements) {
+//            if (element.tagName().equals("div")){
+//                for (Element ele : element.getAllElements()) {
+//                    if(ele.tagName().equals("a") && !ele.attr("href").equals("")){
+//                        Image image = new Image();
+//                        image.setImageUrl(ele.attr("href"));
+//                        if(image.getImageUrl().endsWith(Image.GIF)){
+//                            image.setImageDesc(Image.GIF);
+//                        } else {
+//                            image.setImageDesc(Image.JPG);
+//                        }
+//                        imageList.add(image);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     public void analyseMeiZiImage(boolean loading, String jsonData, List<Image> imageList){
         if(!loading){

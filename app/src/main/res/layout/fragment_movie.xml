@@ -13,11 +13,28 @@
         android:fitsSystemWindows="true"
         app:theme="@style/AppTheme.AppBarOverlay">
 
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:fitsSystemWindows="true"-->
+            <!--app:background="?attr/colorPrimary"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/title"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textSize="20sp" />-->
+
+        <!--</android.support.v7.widget.Toolbar>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:background="?attr/tabLayout_color">
+            app:background="@color/color_03a9f4">
 
             <android.support.design.widget.TabLayout
                 android:layout_width="0dp"

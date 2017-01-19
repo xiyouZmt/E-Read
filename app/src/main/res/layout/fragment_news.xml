@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:background="?attr/tabLayout_color">
+            app:background="@color/color_03a9f4">
 
             <android.support.design.widget.TabLayout
                 android:layout_width="0dp"

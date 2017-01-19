@@ -1,15 +1,13 @@
 package com.zmt.e_read.Adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.bumptech.glide.Glide;
 import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.R;
 
@@ -29,7 +27,6 @@ public class GridAdapter extends BaseAdapter {
     public GridAdapter(List<Image> imageList, Context context) {
         this.imageList = imageList;
         this.context = context;
-        Fresco.initialize(context);
     }
 
     @Override
@@ -61,23 +58,9 @@ public class GridAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder)convertView.getTag();
-//            if(imageList.get(position) != null && viewHolder != null){
-//                Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
-//            } else {
-//                convertView = LayoutInflater.from(context).inflate(R.layout.progressbar_item, null);
-//            }
         }
         if(imageList.get(position) != null) {
-//            Picasso.with(context).load(imageList.get(position).getImageUrl()).into(viewHolder.imageView);
-//            Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
-//            ImageLoader.build(context).bindBitmap(imageList.get(position).getImageUrl(), (viewHolder.imageView));
-            if(imageList.get(position).getImageDesc().endsWith(Image.GIF)){
-                DraweeController draweeController = Fresco.newDraweeControllerBuilder()
-                        .setAutoPlayAnimations(true).setUri(Uri.parse(imageList.get(position).getImageUrl())).build();
-                viewHolder.imageView.setController(draweeController);
-            } else {
-                viewHolder.imageView.setImageURI(Uri.parse(imageList.get(position).getImageUrl()));
-            }
+            Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
         }
         return convertView;
     }
@@ -85,11 +68,9 @@ public class GridAdapter extends BaseAdapter {
     class ViewHolder{
 
         @BindView(R.id.imageView)
-        SimpleDraweeView imageView;
-
+        ImageView imageView;
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);
-            imageView.setAspectRatio(1f);
         }
     }
 }

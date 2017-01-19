@@ -3,11 +3,11 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         Customize your theme here.
-        <item name="colorPrimary">@color/color_03a9f4</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <!--标题栏颜色-->
-        <item name="colorPrimaryDark">@color/color_03a9f4</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--状态栏颜色-->
-        <item name="colorAccent">@color/color_ff5252</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!--UI控件-->
         <item name="windowActionBar">false</item>
         <!--去掉ActionBar-->
@@ -16,7 +16,7 @@
         <!--<item name="android:screenOrientation">portrait</item>-->
 
         <item name="android:windowTranslucentStatus">true</item>
-        <!--使toolBar颜色和状态栏颜色一致-->
+        <!--标题栏颜色和状态栏颜色一致-->
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -40,40 +40,40 @@
         <item name="android:layout_marginEnd">24dp</item>
     </style>
 
-    <!--日间主题-->
-    <style name="DayTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/color_03a9f4</item>
-        <!--标题栏颜色-->
-        <item name="colorPrimaryDark">@color/color_03a9f4</item>
-        <!--状态栏颜色-->
-        <item name="tabLayout_color">@color/color_03a9f4</item>
-        <item name="android:windowBackground">@color/color_ffffff</item>
-        <item name="navigation_color">@color/color_ffffff</item>
-        <item name="recyclerView_item">@color/color_fafafa</item>
-        <item name="listView_item">@color/color_fafafa</item>
-        <item name="news_title">@color/color_de000000</item>
-        <item name="news_digest">@color/color_8a000000</item>
-        <item name="news_time">@color/color_8a000000</item>
-        <item name="movie_title">@color/color_de000000</item>
-        <item name="movie_time">@color/color_8a000000</item>
-    </style>
+    <!--&lt;!&ndash;日间主题&ndash;&gt;-->
+    <!--<style name="DayTheme" parent="AppTheme">-->
+        <!--<item name="colorPrimary">@color/color_03a9f4</item>-->
+        <!--&lt;!&ndash;标题栏颜色&ndash;&gt;-->
+        <!--<item name="colorPrimaryDark">@color/color_03a9f4</item>-->
+        <!--&lt;!&ndash;状态栏颜色&ndash;&gt;-->
+        <!--<item name="tabLayout_color">@color/color_03a9f4</item>-->
+        <!--<item name="android:windowBackground">@color/color_ffffff</item>-->
+        <!--<item name="navigation_color">@color/color_ffffff</item>-->
+        <!--<item name="recyclerView_item">@color/color_fafafa</item>-->
+        <!--<item name="listView_item">@color/color_fafafa</item>-->
+        <!--<item name="news_title">@color/color_de000000</item>-->
+        <!--<item name="news_digest">@color/color_8a000000</item>-->
+        <!--<item name="news_time">@color/color_8a000000</item>-->
+        <!--<item name="movie_title">@color/color_de000000</item>-->
+        <!--<item name="movie_time">@color/color_8a000000</item>-->
+    <!--</style>-->
 
-    <!--夜间模式-->
-    <style name="NightTheme" parent="AppTheme">
-        <item name="colorPrimary">@color/color_ff000000</item>
-        <!--标题栏颜色-->
-        <item name="colorPrimaryDark">@color/color_424242</item>
-        <!--状态栏颜色-->
-        <item name="tabLayout_color">@color/color_ff000000</item>
-        <item name="android:windowBackground">@color/color_8a000000</item>
-        <item name="navigation_color">@color/color_8a000000</item>
-        <item name="recyclerView_item">@color/color_424242</item>
-        <item name="listView_item">@color/color_424242</item>
-        <!--<item name="news_title">@color/color_deffffff</item>-->
-        <!--<item name="news_digest">@color/color_8affffff</item>-->
-        <!--<item name="news_time">@color/color_8affffff</item>-->
-        <!--<item name="movie_title">@color/color_deffffff</item>-->
-        <!--<item name="movie_time">@color/color_8affffff</item>-->
-    </style>
+    <!--&lt;!&ndash;夜间模式&ndash;&gt;-->
+    <!--<style name="NightTheme" parent="AppTheme">-->
+        <!--<item name="colorPrimary">@color/color_ff000000</item>-->
+        <!--&lt;!&ndash;标题栏颜色&ndash;&gt;-->
+        <!--<item name="colorPrimaryDark">@color/color_424242</item>-->
+        <!--&lt;!&ndash;状态栏颜色&ndash;&gt;-->
+        <!--<item name="tabLayout_color">@color/color_ff000000</item>-->
+        <!--<item name="android:windowBackground">@color/color_8a000000</item>-->
+        <!--<item name="navigation_color">@color/color_8a000000</item>-->
+        <!--<item name="recyclerView_item">@color/color_424242</item>-->
+        <!--<item name="listView_item">@color/color_424242</item>-->
+        <!--&lt;!&ndash;<item name="news_title">@color/color_deffffff</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="news_digest">@color/color_8affffff</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="news_time">@color/color_8affffff</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="movie_title">@color/color_deffffff</item>&ndash;&gt;-->
+        <!--&lt;!&ndash;<item name="movie_time">@color/color_8affffff</item>&ndash;&gt;-->
+    <!--</style>-->
 
 </resources>

@@ -2,11 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zmt.e_read.Fragment.ImageListFragment">
+    tools:context="com.zmt.e_read.Fragment.ImageFragment">
+
+    <!--<include layout="@layout/toolbar"-->
+        <!--android:id="@+id/toolbar"/>-->
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:id="@+id/swipeRefreshLayout">
 
         <!--<android.support.v7.widget.RecyclerView-->
@@ -23,9 +27,6 @@
             android:layout_height="match_parent"
             android:id="@+id/gridView"
             android:numColumns="2"
-            android:padding="2dp"
-            android:horizontalSpacing="2dp"
-            android:verticalSpacing="2dp"
             android:stretchMode="columnWidth">
 
         </GridView>
@@ -37,5 +38,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/progress_bar"
         android:layout_centerInParent="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:id="@+id/fab"
+        android:src="@mipmap/ic_arrow_upward">
+
+    </android.support.design.widget.FloatingActionButton>
 
 </RelativeLayout>

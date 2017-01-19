@@ -113,29 +113,21 @@
         <item>rihan/list_6_</item>
     </string-array>
 
-    <string-array name="image_tab">
-        <item>妹子</item>
-        <item>装逼</item>
-    </string-array>
+    <string name="image_tab">妹子</string>
+    <string name="image_url">http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/</string>
 
-    <string-array name="image_type">
-        <item>http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/</item>
-        <item>http://www.zhuangbi.info/hot?page=</item>
-        <item>http://jwkq.xupt.edu.cn:8080/Common/GetPhotoByBH?xh=</item>
-    </string-array>
+    <!--<string-array name="video_tab">-->
+        <!--<item>精品视频</item>-->
+        <!--<item>热点视频</item>-->
+        <!--<item>搞笑视频</item>-->
+        <!--<item>娱乐视频</item>-->
+    <!--</string-array>-->
 
-    <string-array name="video_tab">
-        <item>精品视频</item>
-        <item>热点视频</item>
-        <item>搞笑视频</item>
-        <item>娱乐视频</item>
-    </string-array>
-
-    <string-array name="video_type">
-        <item>00850FRB</item>
-        <item>V9LG4B3A0</item>
-        <item>V9LG4E6VR</item>
-        <item>V9LG4CHOR</item>
-    </string-array>
+    <!--<string-array name="video_type">-->
+        <!--<item>00850FRB</item>-->
+        <!--<item>V9LG4B3A0</item>-->
+        <!--<item>V9LG4E6VR</item>-->
+        <!--<item>V9LG4CHOR</item>-->
+    <!--</string-array>-->
 
 </resources>

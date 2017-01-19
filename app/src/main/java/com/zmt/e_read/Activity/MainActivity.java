@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
@@ -18,6 +18,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -26,12 +27,11 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.zmt.e_read.*;
 import com.zmt.e_read.Application.App;
 import com.zmt.e_read.Fragment.ImageFragment;
-import com.zmt.e_read.Fragment.NewsFragment;
 import com.zmt.e_read.Fragment.MovieFragment;
-import com.zmt.e_read.Fragment.VideoFragment;
+import com.zmt.e_read.Fragment.NewsFragment;
+import com.zmt.e_read.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,20 +50,18 @@ public class MainActivity extends AppCompatActivity {
     private NewsFragment newsFragment;
     private ImageFragment imageFragment;
     private MovieFragment movieFragment;
-    private VideoFragment videoFragment;
     private MenuItem menuItem;
     private long exitTime = 0;
-    private int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /** 获取本地主题*/
-        if(App.MyTheme.equals(App.DAY_THEME)){
-            setTheme(R.style.DayTheme);
-        } else {
-            setTheme(R.style.NightTheme);
-        }
+//        /** 获取本地主题*/
+//        if(App.MyTheme.equals(App.DAY_THEME)){
+//            setTheme(R.style.DayTheme);
+//        } else {
+//            setTheme(R.style.NightTheme);
+//        }
         setContentView(R.layout.activity_main);
         initViews();
         accessPermission();
@@ -78,34 +76,41 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawerLayout,  toolbar, 0, 0);
         drawerToggle.syncState();
         drawerLayout.addDrawerListener(drawerToggle);
-
+        final Intent intent = new Intent();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+
                 switch (item.getItemId()) {
                     case R.id.nav_news:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, newsFragment).commit();
                         title.setText(getString(R.string.news));
                         menuItem.setVisible(false);
-                        position = 0;
                         break;
                     case R.id.nav_photo:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, imageFragment).commit();
                         title.setText(getString(R.string.photo));
                         menuItem.setVisible(false);
-                        position = 1;
                         break;
                     case R.id.nav_movie:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, movieFragment).commit();
                         title.setText(getString(R.string.movie));
                         menuItem.setVisible(true);
-                        position = 2;
                         break;
-                    case R.id.nav_video:
-                        fragmentManager.beginTransaction().replace(R.id.content_frame, videoFragment).commit();
-                        title.setText(getString(R.string.video));
-                        menuItem.setVisible(false);
-                        position = 3;
+//                    case R.id.nav_video:
+//                        fragmentManager.beginTransaction().replace(R.id.content_frame, videoFragment).commit();
+//                        title.setText(getString(R.string.video));
+//                        menuItem.setVisible(false);
+//                        break;
+                    case R.id.suggest :
+                        intent.setAction(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("mailto:zhumintao@xiyou3g.com"));
+                        startActivity(intent);
+                        break;
+                    case R.id.about :
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("http://yun.xiyoumobile.com"));
+                        startActivity(intent);
                         break;
                 }
                 drawerLayout.closeDrawers();
@@ -115,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem menuItem = navigationView.getMenu().findItem(R.id.night_theme);
         final SwitchCompat switchCompat = (SwitchCompat)MenuItemCompat.getActionView(menuItem);
-        setTheme(R.style.DayTheme);
+//        setTheme(R.style.DayTheme);
 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -124,38 +129,31 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (isChecked) {
                     editor.putString("theme", App.NIGHT_THEME);
-                    setTheme(R.style.NightTheme);
-                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_fafafa);
-                    navigationView.setItemTextColor(colorStateList);
+                    getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
+//                    setTheme(R.style.NightTheme);
+//                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_fafafa);
+//                    navigationView.setItemTextColor(colorStateList);
 //                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 //                    initNightTheme();
 //                    nightView.setBackgroundResource(R.color.color_8a000000);
                 } else {
-//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     editor.putString("theme", App.DAY_THEME);
-                    setTheme(R.style.DayTheme);
-                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_ff000000);
-                    navigationView.setItemTextColor(colorStateList);
+                    getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
+//                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                    setTheme(R.style.DayTheme);
+//                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_ff000000);
+//                    navigationView.setItemTextColor(colorStateList);
                 }
                 editor.apply();
-                switch (position) {
-                    case 0:
-                        fragmentManager.beginTransaction().replace(R.id.content_frame, newsFragment).commit();
-                        break;
-                    case 1:
-                        fragmentManager.beginTransaction().replace(R.id.content_frame, imageFragment).commit();
-                        break;
-                    case 2:
-                        fragmentManager.beginTransaction().replace(R.id.content_frame, videoFragment).commit();
-                        break;
-                }
             }
         });
 
         newsFragment = new NewsFragment();
         imageFragment = new ImageFragment();
         movieFragment = new MovieFragment();
-        videoFragment = new VideoFragment();
+//        videoFragment = new VideoFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment).commit();
@@ -238,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

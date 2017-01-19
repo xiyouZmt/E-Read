@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <group>
         <item
             android:id="@+id/nav_news"
@@ -15,9 +14,6 @@
             android:id="@+id/nav_movie"
             android:icon="@mipmap/ic_menu_movie"
             android:title="@string/movie"/>
-        <item
-            android:id="@+id/nav_video"
-            android:title="@string/video"/>
     </group>
 
     <item android:id="@+id/nav_settings"
@@ -26,8 +22,16 @@
             <item
                 android:id="@+id/night_theme"
                 android:title="@string/night_theme"
+                android:icon="@mipmap/night"
                 app:actionLayout="@layout/switch_layout"/>
+            <item
+                android:id="@+id/suggest"
+                android:title="@string/suggest"
+                android:icon="@mipmap/suggest"/>
+            <item
+                android:id="@+id/about"
+                android:title="@string/about"
+                android:icon="@mipmap/about"/>
         </menu>
     </item>
-
 </menu>

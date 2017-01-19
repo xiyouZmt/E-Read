@@ -4,32 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <include
-        layout="@layout/toolbar"
-        android:id="@+id/appBar"/>
+    tools:context=".Activity.MainActivity">
 
     <android.support.v4.widget.DrawerLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/appBar"
         android:fitsSystemWindows="true"
         android:id="@+id/drawerLayout">
 
-        <android.support.design.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/appBar"
-                android:id="@+id/content_frame"
-                android:scrollbars="none"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        </android.support.design.widget.CoordinatorLayout>
+        <include layout="@layout/main_toolbar"/>
 
         <android.support.design.widget.NavigationView
             android:layout_width="wrap_content"
@@ -37,8 +20,8 @@
             android:layout_gravity="start"
             android:id="@+id/navigationView"
             android:fitsSystemWindows="true"
-            app:background="?attr/navigation_color"
-            app:menu="@menu/slidemenu">
+            app:menu="@menu/slidemenu"
+            app:headerLayout="@layout/main_drawer">
 
         </android.support.design.widget.NavigationView>
 

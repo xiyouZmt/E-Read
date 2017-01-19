@@ -11,6 +11,8 @@
     <string name="save_image">保存</string>
     <string name="search">搜索</string>
     <string name="night_theme">夜间模式</string>
+    <string name="suggest">问题反馈</string>
+    <string name="about">关于我们</string>
 
     <string name="share">来自易读的分享:%1$s %2$s</string>
 
