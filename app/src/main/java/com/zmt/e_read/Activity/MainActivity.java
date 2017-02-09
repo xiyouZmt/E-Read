@@ -24,9 +24,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.zmt.e_read.Application.App;
 import com.zmt.e_read.Fragment.ImageFragment;
 import com.zmt.e_read.Fragment.MovieFragment;
@@ -56,15 +58,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        /** 获取本地主题*/
-//        if(App.MyTheme.equals(App.DAY_THEME)){
-//            setTheme(R.style.DayTheme);
-//        } else {
-//            setTheme(R.style.NightTheme);
-//        }
         setContentView(R.layout.activity_main);
         initViews();
         accessPermission();
+        ObjectAnimator.ofFloat(title, "", 0, 100).setDuration(100).start();
+        MarginLayoutParams params = (MarginLayoutParams) title.getLayoutParams();
+        params.leftMargin += 100;
+        params.height += 100;
+        title.requestLayout();
     }
 
     public void initViews(){
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.nav_news:
                         fragmentManager.beginTransaction().replace(R.id.content_frame, newsFragment).commit();
@@ -97,11 +97,6 @@ public class MainActivity extends AppCompatActivity {
                         title.setText(getString(R.string.movie));
                         menuItem.setVisible(true);
                         break;
-//                    case R.id.nav_video:
-//                        fragmentManager.beginTransaction().replace(R.id.content_frame, videoFragment).commit();
-//                        title.setText(getString(R.string.video));
-//                        menuItem.setVisible(false);
-//                        break;
                     case R.id.suggest :
                         intent.setAction(Intent.ACTION_SENDTO);
                         intent.setData(Uri.parse("mailto:zhumintao@xiyou3g.com"));
@@ -120,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem menuItem = navigationView.getMenu().findItem(R.id.night_theme);
         final SwitchCompat switchCompat = (SwitchCompat)MenuItemCompat.getActionView(menuItem);
-//        setTheme(R.style.DayTheme);
 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -153,21 +147,10 @@ public class MainActivity extends AppCompatActivity {
         newsFragment = new NewsFragment();
         imageFragment = new ImageFragment();
         movieFragment = new MovieFragment();
-//        videoFragment = new VideoFragment();
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.content_frame, newsFragment).commit();
     }
-
-//    public void initNightTheme(){
-//        WindowManager.LayoutParams nightViewParam = new WindowManager.LayoutParams(
-//                WindowManager.LayoutParams.TYPE_APPLICATION,
-//                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-//                PixelFormat.TRANSPARENT);
-//        windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
-//        nightView = new View(this);
-//        windowManager.addView(nightView, nightViewParam);
-//    }
 
     public void accessPermission(){
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
