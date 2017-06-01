@@ -92,14 +92,11 @@ public class ImageFragment extends Fragment{
                         AnalyseUtils analyse = new AnalyseUtils();
                         analyse.analyseMeiZiImage(loading, object.toString(), imageList);
                         if(adapter == null){
-//                            adapter = new MovieAdapter(getActivity(), imageList, ImageFragment.this);
-//                            recyclerView.setAdapter(adapter);
                             adapter = new GridAdapter(imageList, getActivity());
                             gridView.setAdapter(adapter);
                         } else {
                             if(loading){
                                 adapter.notifyDataSetChanged();
-//                                adapter.notifyItemRemoved(manager.getItemCount());
                                 loading = false;
                             } else {
 //                                adapter = new MovieAdapter(getContext(), imageList, ImageFragment.this);
@@ -142,6 +139,9 @@ public class ImageFragment extends Fragment{
 //                    break;
 //                }
 //            }
+
+
+
             if(view.getLastVisiblePosition() == gridView.getCount() - 1){
                 /**
                  * 加载更多

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="colorPrimaryDark">@color/color_424242</item>    &lt;!&ndash;状态栏颜色&ndash;&gt;-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

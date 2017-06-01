@@ -17,10 +17,10 @@ import com.zmt.e_read.Adapter.AdapterInterface.ManageItem;
 import com.zmt.e_read.Adapter.AdapterInterface.OnItemClickListener;
 import com.zmt.e_read.Adapter.ItemClickListener;
 import com.zmt.e_read.Adapter.ManageChannelAdapter;
+import com.zmt.e_read.Adapter.ViewHolder.MyItemCallback;
 import com.zmt.e_read.Fragment.NewsFragment;
 import com.zmt.e_read.Module.ManageChannel;
 import com.zmt.e_read.R;
-import com.zmt.e_read.Adapter.ViewHolder.MyItemCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

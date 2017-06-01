@@ -23,7 +23,6 @@
     <color name="colorPrimaryDark">#18181a</color>
     <color name="colorAccent">#ff5252</color>
 
-
     <integer-array name="color_array">
         <item>@color/color_03a9f4</item>
         <item>@color/color_ff5252</item>

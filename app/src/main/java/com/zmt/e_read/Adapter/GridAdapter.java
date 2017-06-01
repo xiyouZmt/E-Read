@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 import com.zmt.e_read.Module.Image;
 import com.zmt.e_read.R;
 
@@ -60,7 +61,7 @@ public class GridAdapter extends BaseAdapter {
             viewHolder = (ViewHolder)convertView.getTag();
         }
         if(imageList.get(position) != null) {
-            Glide.with(context).load(imageList.get(position).getImageUrl()).centerCrop().into(viewHolder.imageView);
+            Glide.with(context).load(imageList.get(position).getImageUrl()).into(viewHolder.imageView);
         }
         return convertView;
     }

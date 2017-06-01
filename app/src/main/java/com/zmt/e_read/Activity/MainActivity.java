@@ -24,11 +24,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.nineoldandroids.animation.ObjectAnimator;
 import com.zmt.e_read.Application.App;
 import com.zmt.e_read.Fragment.ImageFragment;
 import com.zmt.e_read.Fragment.MovieFragment;
@@ -61,11 +59,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         accessPermission();
-        ObjectAnimator.ofFloat(title, "", 0, 100).setDuration(100).start();
-        MarginLayoutParams params = (MarginLayoutParams) title.getLayoutParams();
-        params.leftMargin += 100;
-        params.height += 100;
-        title.requestLayout();
     }
 
     public void initViews(){
@@ -104,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.about :
                         intent.setAction(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("http://yun.xiyoumobile.com"));
+                        intent.setData(Uri.parse("https://xiyoumobile.com"));
                         startActivity(intent);
                         break;
                 }
@@ -123,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (isChecked) {
                     editor.putString("theme", App.NIGHT_THEME);
-                    getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    recreate();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 //                    setTheme(R.style.NightTheme);
 //                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_fafafa);
 //                    navigationView.setItemTextColor(colorStateList);
@@ -133,13 +125,13 @@ public class MainActivity extends AppCompatActivity {
 //                    nightView.setBackgroundResource(R.color.color_8a000000);
                 } else {
                     editor.putString("theme", App.DAY_THEME);
-                    getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    recreate();
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 //                    setTheme(R.style.DayTheme);
 //                    ColorStateList colorStateList = getResources().getColorStateList(R.color.color_ff000000);
 //                    navigationView.setItemTextColor(colorStateList);
                 }
+//                recreate();
                 editor.apply();
             }
         });

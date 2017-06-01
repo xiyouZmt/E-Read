@@ -39,6 +39,7 @@ import butterknife.ButterKnife;
  */
 public class NewsListFragment extends android.support.v4.app.Fragment implements OnItemClickListener {
 
+    public static final String FILTER = "com.zmt.e_read.broadCast.newsToTop";
     private View view;
     private List<News> newsList;
     private String channelType = "";
@@ -54,7 +55,6 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
-    public static final String FILTER = "com.zmt.e_read.broadCast.newsToTop";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,7 +99,7 @@ public class NewsListFragment extends android.support.v4.app.Fragment implements
                         if(newsList.size() != 0){
                             newsAdapter.notifyItemRemoved(newsList.size() - 1);
                         }
-                        Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
+//                        Snackbar.make(view, "服务器连接错误!", Snackbar.LENGTH_SHORT).show();
                         break;
                     default :
                         AnalyseUtils analyse = new AnalyseUtils();

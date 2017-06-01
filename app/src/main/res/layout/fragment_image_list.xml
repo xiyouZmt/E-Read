@@ -9,8 +9,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_height="wrap_content"
         android:id="@+id/swipeRefreshLayout">
 
         <!--<android.support.v7.widget.RecyclerView-->
@@ -27,6 +26,8 @@
             android:layout_height="match_parent"
             android:id="@+id/gridView"
             android:numColumns="2"
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"
             android:stretchMode="columnWidth">
 
         </GridView>

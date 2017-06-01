@@ -29,7 +29,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -53,8 +52,8 @@ public class NewsFragment extends Fragment {
     TabLayout channelTab;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
-    @BindView(R.id.addChannel)
-    ImageView addChannel;
+//    @BindView(R.id.addChannel)
+//    ImageView addChannel;
     @BindView(R.id.fab)
     FloatingActionButton fab;
 

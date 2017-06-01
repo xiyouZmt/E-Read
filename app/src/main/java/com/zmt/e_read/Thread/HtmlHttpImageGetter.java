@@ -51,7 +51,7 @@ public class HtmlHttpImageGetter implements Html.ImageGetter {
     public Drawable getDrawable(String source) {
         HtmlHttpImageGetter.UrlDrawable urlDrawable = new HtmlHttpImageGetter.UrlDrawable();
         HtmlHttpImageGetter.ImageGetterAsyncTask asyncTask = new HtmlHttpImageGetter.ImageGetterAsyncTask(urlDrawable, this, this.container, this.matchParentWidth);
-        asyncTask.execute(new String[]{source});
+        asyncTask.execute(source);
         return urlDrawable;
     }
 
