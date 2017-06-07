@@ -15,8 +15,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:layout_marginTop="8dp"
-            android:id="@+id/linear_translate_name"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="片名 : "
+                style="@style/TextAppearance.AppCompat.Title"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/movie_name"
+                android:maxLines="1"
+                android:gravity="center_vertical"
+                style="@style/TextAppearance.AppCompat.Body1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -39,53 +60,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_name"
-            android:padding="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="片名 : "
-                style="@style/TextAppearance.AppCompat.Title"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/movie_name"
-                android:maxLines="1"
-                android:gravity="center_vertical"
-                style="@style/TextAppearance.AppCompat.Body1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linear_another_name"
-            android:padding="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="又名 : "
-                style="@style/TextAppearance.AppCompat.Title"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/movie_another_name"
-                android:maxLines="1"
-                android:gravity="center_vertical"
-                style="@style/TextAppearance.AppCompat.Body1"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_year"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -108,7 +82,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_country"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -131,7 +104,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_style"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -154,7 +126,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_language"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -177,7 +148,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_captions"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -200,7 +170,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_release_date"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -223,7 +192,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_score_IMDb"
+            android:id="@+id/grade_IMDb"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -247,7 +216,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_score_douBan"
+            android:id="@+id/grade_douBan"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -271,7 +240,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_form"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -294,7 +262,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_size"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -317,7 +284,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_bulk"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -340,7 +306,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_length"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -363,7 +328,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_director"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -386,7 +350,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_actor"
             android:padding="5dp"
             android:orientation="horizontal">
 
@@ -409,7 +372,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linear_movie_introduce"
             android:padding="5dp"
             android:orientation="horizontal">
 

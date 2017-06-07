@@ -116,6 +116,27 @@
     <string name="image_tab">妹子</string>
     <string name="image_url">http://gank.io/api/data/%E7%A6%8F%E5%88%A9/20/</string>
 
+    <string-array name="movie_info">
+        <item>译　　名</item>
+        <item>片　　名</item>
+        <item>又　　名</item>
+        <item>年　　代</item>
+        <item>产　　地</item>
+        <item>类　　别</item>
+        <item>语　　言</item>
+        <item>字　　幕</item>
+        <item>上映日期</item>
+        <item>IMDb</item>
+        <item>豆瓣评分</item>
+        <item>文件格式</item>
+        <item>视频尺寸</item>
+        <item>文件大小</item>
+        <item>片　　长</item>
+        <item>导　　演</item>
+        <item>主　　演</item>
+        <item>简　　介</item>
+    </string-array>
+
     <!--<string-array name="video_tab">-->
         <!--<item>精品视频</item>-->
         <!--<item>热点视频</item>-->

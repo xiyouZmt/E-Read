@@ -12,19 +12,25 @@ import android.util.Log;
 public class ThunderUtils {
 
     private final String PACKAGE_NAME = "com.xunlei.downloadprovider";
-    private Context context;
     public static ThunderUtils thunderUtils;
+    private Context context;
 
     public static ThunderUtils getInstance(Context context) {
-        thunderUtils = new ThunderUtils(context);
+        synchronized (ThunderUtils.class){
+            if(thunderUtils == null){
+                synchronized (ThunderUtils.class){
+                    thunderUtils = new ThunderUtils(context);
+                }
+            }
+        }
         return thunderUtils;
     }
 
-    public ThunderUtils(Context context){
+    private ThunderUtils(Context context){
         this.context = context;
     }
 
-    public boolean isInstalled(){
+    public  boolean isInstalled(){
         try {
             context.getPackageManager().getApplicationInfo(PACKAGE_NAME, 0);
             return true;

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -41,16 +42,19 @@ public class MovieDetailActivity extends SwipeBackActivity {
     @BindView(R.id.toolbar_layout)
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.fab) FloatingActionButton fab;
-    @BindViews({R.id.movie_translate_name, R.id.movie_name, R.id.movie_year, R.id.movie_country,
-    R.id.movie_style, R.id.movie_language, R.id.movie_captions, R.id.movie_score, R.id.movie_form,
-    R.id.movie_size, R.id.movie_bulk, R.id.movie_length, R.id.movie_director, R.id.movie_actor,
-            R.id.movie_introduce}) TextView [] textViews;
-    @BindView(R.id.grade) LinearLayout linear_grade;
-    @BindView(R.id.text_grade) TextView text_grade;
+    @BindViews({R.id.movie_translate_name, R.id.movie_name, R.id.movie_another_name, R.id.movie_year,
+            R.id.movie_country, R.id.movie_style, R.id.movie_language, R.id.movie_captions, R.id.release_date,
+            R.id.movie_score_IMDb, R.id.movie_score_douBan, R.id.movie_form, R.id.movie_size, R.id.movie_bulk,
+            R.id.movie_length, R.id.movie_director, R.id.movie_actor, R.id.movie_introduce}) TextView [] textViews;
+    @BindViews({R.id.linear_translate_name, R.id.linear_movie_name, R.id.linear_another_name, R.id.linear_movie_year,
+            R.id.linear_movie_country, R.id.linear_movie_style, R.id.linear_movie_language, R.id.linear_movie_captions, R.id.linear_release_date,
+            R.id.linear_score_IMDb, R.id.linear_score_douBan, R.id.linear_movie_form, R.id.linear_movie_size, R.id.linear_movie_bulk,
+            R.id.linear_movie_length, R.id.linear_movie_director, R.id.linear_movie_actor, R.id.linear_movie_introduce}) LinearLayout [] linearLayouts;
     @BindView(R.id.preview) ImageView preview;
     private Movie movie;
     private Map<String, String> map;
     private List<String> list;
+    private String [] movie_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +89,7 @@ public class MovieDetailActivity extends SwipeBackActivity {
                         analyse.analyseMovieDetail(object.toString(), map);
                         showMovieImage(map);
                         ignorePrefix(list, map);
-                        showMovieInfo(list, textViews);
+                        showMovieInfos(list, textViews);
                         break;
                 }
             }
@@ -112,77 +116,143 @@ public class MovieDetailActivity extends SwipeBackActivity {
         }
     }
 
-    private void showMovieInfo(List<String> list, TextView [] textViews){
-        int i = 0;
+//    private void showMovieInfo(List<String> list, TextView [] textViews){
+//        int i = 0;
+//        int start, end;
+//        /**
+//         * 设置toolbar标题
+//         */
+//        collapsingToolbarLayout.setTitle(list.get(0).substring(5));
+//        for(TextView textView : textViews){
+//            String value = list.get(i);
+//            if(i == 0){
+//                /**
+//                 * 片名
+//                 */
+//                textView.setText(movie.getName());
+//            } else if(i == 7 || i == 8){
+//                /**
+//                 * IMDb和豆瓣评分处理
+//                 */
+//                if(value.contains("users") || value.contains("votes")){
+//                    end =  0;
+//                    boolean first = true;
+//                    for (int j = 0; j < value.length(); j++) {
+//                        if(first && value.charAt(j) == ' '){
+//                            first = false;
+//                        } else if(!first && value.charAt(j) != ' '){
+//                            end = j;
+//                            break;
+//                        }
+//                    }
+//                    textView.setText(value.substring(end));
+//                } else {
+//                    if(linear_grade.getVisibility() == View.VISIBLE){
+//                        linear_grade.setVisibility(View.GONE);
+//                        i--;
+//                    } else {
+//                        textView.setText(value.substring(5));
+//                    }
+//                }
+//            } else if(i == list.size() - 2){
+//                /**
+//                 * actor换行处理
+//                 */
+//                start = end =  0;
+//                boolean first = true;
+//                Log.e("value", value);
+//                for (int j = 0; j < value.length(); j++) {
+//                    Log.e(String.valueOf(j) + "--->", String.valueOf(value.charAt(j)));
+//                    if(first && value.charAt(j) == '　'){
+//                        start = j;
+//                        first = false;
+//                    } else if(!first && value.charAt(j) != '　'){
+//                        end = j;
+//                        first = true;
+//                        if(end - start > 2){
+//                            break;
+//                        }
+//                    }
+//                }
+//                value = value.replace(value.substring(start, end), "\n");
+//                textView.setText(value.substring(5));
+//            } else if(i == list.size() - 1){
+//                /**
+//                 * 忽略简介缩进
+//                 */
+//                textView.setText(value.substring(7));
+//            } else {
+//                textView.setText(value.substring(5));
+//            }
+//            i++;
+//            if(i >= list.size()){
+//                break;
+//            }
+//        }
+//    }
+
+    public void showMovieInfos(List<String> list, TextView [] textViews){
+        int movieInfoPos = 0;
+        int displace = 0;
         int start, end;
-        /**
-         * 设置toolbar标题
-         */
         collapsingToolbarLayout.setTitle(list.get(0).substring(5));
-        for(TextView textView : textViews){
-            String value = list.get(i);
-            if(i == 0){
-                /**
-                 * 片名
-                 */
-                textView.setText(movie.getName());
-            } else if(i == 7){
-                /**
-                 * 评分处理
-                 */
-                if(value.contains("users") || value.contains("votes")){
-                    end =  0;
-                    boolean first = true;
-                    for (int j = 0; j < value.length(); j++) {
-                        if(first && value.charAt(j) == ' '){
-                            first = false;
-                        } else if(!first && value.charAt(j) != ' '){
-                            end = j;
+        for (int i = 0; i < list.size(); i++) {
+            String temp = list.get(i);
+            while (true) {
+                if(movieInfoPos == movie_info.length){
+                    break;
+                }
+                String info = temp.substring(0, 4);
+                if(info.equals(movie_info[movieInfoPos]) || info.equals("国　　家") || info.equals("地　　区") || info.equals("类　　型")){
+                    String content ;
+                    switch (movie_info[movieInfoPos]) {
+                        case "IMDb":
+                            content = temp.substring(7);
                             break;
-                        }
+                        case "主　　演":
+                            /**
+                             * actor换行处理
+                             */
+                            start = end = 0;
+                            boolean first = true;
+                            for (int j = 0; j < temp.length(); j++) {
+                                Log.e(String.valueOf(j) + "--->", String.valueOf(temp.charAt(j)));
+                                if (first && temp.charAt(j) == '　') {
+                                    start = j;
+                                    first = false;
+                                } else if (!first && temp.charAt(j) != '　') {
+                                    end = j;
+                                    first = true;
+                                    if (end - start > 2) {
+                                        break;
+                                    }
+                                }
+                            }
+                            temp = temp.replace(temp.substring(start, end), "\n");
+                            content = temp.substring(5);
+                            break;
+                        case "简　　介" :
+                            /**
+                             * 忽略缩进
+                             */
+                            content = temp.substring(7);
+                            break;
+                        default:
+                            content = temp.substring(5);
+                            break;
                     }
-                    textView.setText(value.substring(end));
+                    textViews[i + displace].setText(content);
+                    movieInfoPos ++;
+
+                    break;
                 } else {
-                    if(linear_grade.getVisibility() == View.VISIBLE){
-                        linear_grade.setVisibility(View.GONE);
-                        i--;
-                    } else {
-                        textView.setText(value.substring(5));
-                    }
+                    /**
+                     * gone掉对应布局
+                     */
+                    linearLayouts[i + displace].setVisibility(View.GONE);
+                    displace ++;
+                    movieInfoPos ++;
                 }
-            } else if(i == list.size() - 2){
-                /**
-                 * actor换行处理
-                 */
-                start = end =  0;
-                boolean first = true;
-                Log.e("value", value);
-                for (int j = 0; j < value.length(); j++) {
-                    Log.e(String.valueOf(j) + "--->", String.valueOf(value.charAt(j)));
-                    if(first && value.charAt(j) == '　'){
-                        start = j;
-                        first = false;
-                    } else if(!first && value.charAt(j) != '　'){
-                        end = j;
-                        first = true;
-                        if(end - start > 2){
-                            break;
-                        }
-                    }
-                }
-                value = value.replace(value.substring(start, end), "\n");
-                textView.setText(value.substring(5));
-            } else if(i == list.size() - 1){
-                /**
-                 * 忽略简介缩进
-                 */
-                textView.setText(value.substring(7));
-            } else {
-                textView.setText(value.substring(5));
-            }
-            i++;
-            if(i >= list.size()){
-                break;
             }
         }
     }
@@ -211,8 +281,9 @@ public class MovieDetailActivity extends SwipeBackActivity {
         list = new ArrayList<>();
         movie = (Movie)getIntent().getSerializableExtra(Movie.TAG);
 //        toolbar.setNavigationIcon(R.mipmap.ic_arrow_back);
-        toolbar.setTitle("");
+//        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        movie_info = getResources().getStringArray(R.array.movie_info);
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -220,7 +291,12 @@ public class MovieDetailActivity extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
                 String downloadUrl = map.get("movie_downloadUrl");
-                ThunderUtils.getInstance(MovieDetailActivity.this).downloadFile(downloadUrl);
+                ThunderUtils thunderUtils = ThunderUtils.getInstance(MovieDetailActivity.this);
+                if(thunderUtils.isInstalled()){
+                    thunderUtils.downloadFile(downloadUrl);
+                } else {
+                    Snackbar.make(fab, "该影片链接为迅雷P2P资源,须安装迅雷下载工具才能进行下载", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
     }
