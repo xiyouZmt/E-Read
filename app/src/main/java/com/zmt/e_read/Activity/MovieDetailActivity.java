@@ -196,6 +196,15 @@ public class MovieDetailActivity extends SwipeBackActivity {
         int displace = 0;
         int start, end;
         collapsingToolbarLayout.setTitle(list.get(0).substring(5));
+        /**
+         * 交换译名和片名
+         */
+        if(list.get(0).substring(0, 4).equals(movie_info[1])
+                && list.get(1).substring(0, 4).equals(movie_info[0]) ){
+            String temp = list.get(0);
+            list.set(0, list.get(1));
+            list.set(1, temp);
+        }
         for (int i = 0; i < list.size(); i++) {
             String temp = list.get(i);
             while (true) {
@@ -243,7 +252,6 @@ public class MovieDetailActivity extends SwipeBackActivity {
                     }
                     textViews[i + displace].setText(content);
                     movieInfoPos ++;
-
                     break;
                 } else {
                     /**
