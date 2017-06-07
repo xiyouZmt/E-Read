@@ -3,6 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
+    <string name="refresh">刷新</string>
+    <string name="open_on_browser">用浏览器打开</string>
     <string name="news">新闻</string>
     <string name="photo">图片</string>
     <string name="movie">电影</string>

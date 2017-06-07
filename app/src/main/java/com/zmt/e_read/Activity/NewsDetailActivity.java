@@ -1,6 +1,7 @@
 package com.zmt.e_read.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -117,7 +118,7 @@ public class NewsDetailActivity extends SwipeBackActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_movie_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -131,8 +132,16 @@ public class NewsDetailActivity extends SwipeBackActivity {
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             finish();
-            return true;
+        } else if(id == R.id.action_settings){
+            GetData getNewsData = new GetData(contentUrl, handler,News.TAG);
+            Thread thread = new Thread(getNewsData, "GetData");
+            thread.start();
+        } else if(id == R.id.browser){
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(news.getContentUrl()));
+            startActivity(intent);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

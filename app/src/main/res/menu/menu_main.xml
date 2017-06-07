@@ -3,8 +3,13 @@
     tools:context=".MainActivity">
 
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:title="@string/refresh"
         android:orderInCategory="100"
         android:showAsAction="never" />
+
+    <item android:id="@+id/browser"
+        android:title="@string/open_on_browser"
+        android:orderInCategory="100"
+        android:showAsAction="never"/>
 
 </menu>
