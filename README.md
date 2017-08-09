@@ -16,6 +16,6 @@
 
 ## About me
 
-### Email : [taominzhu@gmail.com](mailto:taominzhu@gmail.com) [15667025860@163.com](mailto:15667025860@163.com)
+### Email : [taominzhu@gmail.com](mailto:taominzhu@gmail.com)
 
 ### CSDN : [blog.csdn.net/zhumintao](http://blog.csdn.net/zhumintao)
